@@ -338,34 +338,35 @@ Note
 <section id="short-reads-assemblies-metaspades" class="level1">
 <h1>Short-reads assemblies: metaSPAdes</h1>
 <p>For short reads, we will use <a href="https://github.com/ablab/spades">SPAdes - St.&nbsp;Petersburg genome Assembler</a>, a suite of assembling tools containing different assembly pipelines. For metagenomic data, we will the more metagenomi-specific side of SPAdes - metaSPAdes. metaSPAdes offers many options that fit your preferences differently, mostly depending on the type of data you are willing to assemble. To explore them, type <code>metaspades.py -h</code>. Bear in mind that options will differ when selecting different tools (e.g.&nbsp;spades.py) and they should be tuned according to the input dataset and desired outcome.</p>
-<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Step
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The default metaSPAdes pipeline executes an error correction step on the input fastqs. To run metaspades without the error correction step, execute the following commands:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> assembly_spades</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">metaspades.py</span> <span class="at">-t</span> 4 <span class="at">--only-assembler</span> <span class="at">-m</span> 10 <span class="at">-1</span> reads/oral_human_example_1_splitaa_trimmed_decontam.fastq <span class="at">-2</span> reads/oral_human_example_2_splitaa_trimmed_decontam.fastq <span class="at">-o</span> assembly_spades</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The default metaSPAdes pipeline executes an error correction step on the input fastqs. Since reads have already been polished in the past step, you can run metaspades without the error correction step.</p>
+<p>You can see available metaspades parameters by typing the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">metaspades.py</span> <span class="at">-h</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>This execution should be able to run on a 4-core, 32 GB ram laptop. However, the command above will NOT work on your VMs to prevent overload on the system if all VM users are running this command at the same time. If you are willing to launch this, the execution will take up to 20 minutes.</p>
 </div>
 </div>
+<p>An explanation of involved parameters follows: * <code>-t 4</code> threads * <code>--only-assembler</code> skips the error correction step * <code>-m 10</code> memory limit in Gb * <code>-1 reads/oral_human_example_1_splitaa_trimmed_decontam.fastq</code> forward read * <code>-2 reads/oral_human_example_2_splitaa_trimmed_decontam.fastq</code> reverse read *<code>-o assembly_spades</code> output folder</p>
 <p>Once the assembly has completed, you will see plenty of files, in the <code>assembly_spades</code> folder including intermediate ones. <code>contigs.fasta</code> and <code>scaffolds.fasta</code> are the ones you are usually interested into for downstream analyses (e.g.&nbsp;binning and MAG generation). We will focus on <code>contigs.fasta</code> for this session, which is the same you are going to use in the coming practicals. Contigs in this file are ordered from the longest to the shortest. Without having to go all the way down to MAGs, you could sometimes identify strong taxonomic signals at the assembly stage with a quick blastn alignment.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -392,13 +393,13 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Which species do you think this sequence may be coming from?</p>
+<p>What species does this sequence seem to be coming from?</p>
 <p>Does this make sense as a human oral bacterium? Are you surprised by this result at all?</p>
 </div>
 </div>
 <p>As mentioned in the theory talk, you might be interested in different statistics for your contigs file. <code>assembly_stats</code> is a tool that produces two simple tables in JSON format with various measures, including N10 to N50, GC content, longest contig length and more. The first section of the JSON corresponds to the scaffolds in the assembly, while the second corresponds to the contigs.</p>
 <p>N50 is a measure to describe the quality of assembled genomes that are fragmented in contigs of different length, used to assess the sequence length of the shortest contig at 50% of the total assembly length (after sorting assembled contigs from longest to shortest).</p>
-<p>A (hopefully) clarifying picture to understand N50: <img src="assemblies/N50.png" class="img-fluid" alt="N50"></p>
+<p>A (hopefully) clarifying picture to understand N50: <img src="assemblies/N50.png" style="width:70.0%;height:70.0%" alt="N50"></p>
 <p>Essentially, the higher this value, the better, as it means that longer (i.e.&nbsp;more complete) contigs cover a certain fraction of the final assembly. However, this only makes sense when thinking about alike metagenomes. Note that, like N50, other values can be considered e.g.&nbsp;N90 is the shortest contig length to cover 90 percent of the metagenome.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
