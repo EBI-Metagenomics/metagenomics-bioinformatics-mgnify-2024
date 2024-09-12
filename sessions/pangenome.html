@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <a href="www.ebi.ac.uk">
+            <a href="https://www.ebi.ac.uk">
             EMBL-EBI
             </a>
           </p>
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <a href="www.ebi.ac.uk">
+            <a href="https://www.ebi.ac.uk">
             EMBL-EBI
             </a>
           </p>
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <a href="www.ebi.ac.uk">
+            <a href="https://www.ebi.ac.uk">
             EMBL-EBI
             </a>
           </p>
@@ -453,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To prevent CELEBRIMBOR from re-running Bakta and CheckM, we must update the creation times of the input and output files using <code>touch</code>. If you do your own analysis outside of this practical, this is not recommended as you would want to run the full CELEBRIMBOR pipeline.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="bu">cd</span> ~/course_dir/data_dir/MGnify_training_course/MAGs_for_CELEBRIMBOR/CELEBRIMBOR_MAGs <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> <span class="pp">*</span>.fasta<span class="kw">)</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="bu">cd</span> ~/course_dir/work_dir/Day_5/pangenome/CELEBRIMBOR_results <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> annotated/<span class="pp">*</span>/<span class="pp">*</span> <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> annotated/<span class="pp">*</span><span class="kw">)</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="bu">cd</span> ~/course_dir/work_dir/Day_5/pangenome/CELEBRIMBOR_results <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out/<span class="pp">*</span> <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out/<span class="pp">*</span>/<span class="pp">*</span> <span class="kw">&amp;&amp;</span> <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out/<span class="pp">*</span>/<span class="pp">*</span>/<span class="pp">*</span><span class="kw">)</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="bu">cd</span> ~/course_dir/work_dir/Day_5/pangenome/CELEBRIMBOR_results <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out/<span class="pp">*</span> <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out/<span class="pp">*</span>/<span class="pp">*</span> <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out/<span class="pp">*</span>/<span class="pp">*</span>/<span class="pp">*</span><span class="kw">)</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="bu">cd</span> ~/course_dir/work_dir/Day_5/pangenome/CELEBRIMBOR_results <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> checkm_out.tsv<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Documentation for CELEBRIMBOR can be found <a href="https://github.com/bacpop/CELEBRIMBOR">here</a>.</p>
 <p>Snakemake reads a <code>config.yaml</code> file to assign parameters. Navigate to the <code>CELEBRIMBOR</code> directory, and update the <code>config.yaml</code> file with the appropriate parameters.</p>
