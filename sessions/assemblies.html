@@ -244,6 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#before-we-start" id="toc-before-we-start" class="nav-link" data-scroll-target="#before-we-start">Before we start…</a></li>
   <li><a href="#short-reads-assemblies-metaspades" id="toc-short-reads-assemblies-metaspades" class="nav-link" data-scroll-target="#short-reads-assemblies-metaspades">Short-reads assemblies: metaSPAdes</a></li>
   <li><a href="#long-reads-assemblies-flye" id="toc-long-reads-assemblies-flye" class="nav-link" data-scroll-target="#long-reads-assemblies-flye">Long-reads assemblies: Flye</a></li>
+  <li><a href="#diving-into-assembly-graphs" id="toc-diving-into-assembly-graphs" class="nav-link" data-scroll-target="#diving-into-assembly-graphs">Diving into assembly graphs</a></li>
   <li><a href="#co-assemblies-megahit" id="toc-co-assemblies-megahit" class="nav-link" data-scroll-target="#co-assemblies-megahit">Co-assemblies: MEGAHIT</a></li>
   <li><a href="#and-now" id="toc-and-now" class="nav-link" data-scroll-target="#and-now">… And now?</a></li>
   <li><a href="#yes-but-now-that-i-am-really-really-done" id="toc-yes-but-now-that-i-am-really-really-done" class="nav-link" data-scroll-target="#yes-but-now-that-i-am-really-really-done">…….. Yes, but now that I am really, really done?</a></li>
@@ -320,30 +321,20 @@ Note
 <p>The process of metagenomic assembly can take hours, if not days, to complete on a normal sample, as it often requires days of CPU time and 100s of GB of memory. In this practical, we will only investigate very simple example datasets.</p>
 </div>
 </div>
-<p>Once you have quality filtered your sequencing reads, you may want to perform <em>de novo</em> assembly in addition to, or as an alternative to, read-based analyses. The first step is to assemble your sequences into contigs. There are many tools available for this, such as MetaVelvet, metaSPAdes, IDBA-UD, or MEGAHIT. We generally use metaSPAdes, as in most cases it yields the best contig size statistics (i.e.&nbsp;more continguous assembly), and it has been shown to be able to capture high degrees of community diversity (Vollmers, et al.&nbsp;PLOS One 2017). However, you should consider pros and cons of different assemblers, which not only includes the accuracy of the assembly, but also their computational overhead. Compare these factors to what you have available. For example, very diverse samples with a lot of sequence data (e.g.&nbsp;samples from the soil) uses a lot of memory with SPAdes. In the following practicals we will demonstrate the use of <strong>metaSPAdes</strong> on a small short-read sample, <strong>Flye</strong> on a long-read sample, and <strong>MEGAHIT</strong> to perform co-assembly.</p>
+<p>Once you have quality filtered your sequencing reads, you may want to perform <em>de novo</em> assembly in addition to, or as an alternative to, read-based analyses. The first step is to assemble your sequences into contigs. There are many tools available for this, such as <code>MetaVelvet</code>, <code>metaSPAdes</code>, <code>IDBA-UD</code>, or <code>MEGAHIT</code>.</p>
+<p>We generally use <code>metaSPAdes</code>, as in most cases it yields the best contig size statistics (i.e.&nbsp;more continguous assembly), and it has been shown to be able to capture high degrees of community diversity (<a href="https://europepmc.org/article/MED/28099457">Vollmers, et al.&nbsp;PLOS One 2017</a>). However, you should consider pros and cons of different assemblers, which not only includes the accuracy of the assembly, but also their computational overhead. Compare these factors to what you have available.</p>
+<p>For example, very diverse samples with a lot of sequence data (e.g.&nbsp;samples from the soil) uses a lot of memory with SPAdes. In the following practicals we will demonstrate the use of <code>metaSPAdes</code> on a small short-read sample, <code>Flye</code> on a long-read sample, and <code>MEGAHIT</code> to perform co-assembly.</p>
 </section>
 <section id="before-we-start" class="level1">
 <h1>Before we start…</h1>
 <p>Let’s first move to the root working directory to run all analyses:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/Assembly/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You will find all inputs needed for assemblies in the <code>reads</code> folder.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If anything goes wrong during the practical, you will find assembly backups for all steps in the respective “.bak” folders.</p>
-</div>
-</div>
+<p>The raw reads used for assembly generation can be found in the <code>data_dir/[long/short]_reads</code>” folders.</p>
 </section>
 <section id="short-reads-assemblies-metaspades" class="level1">
 <h1>Short-reads assemblies: metaSPAdes</h1>
-<p>For short reads, we will use <a href="https://github.com/ablab/spades">SPAdes - St.&nbsp;Petersburg genome Assembler</a>, a suite of assembling tools containing different assembly pipelines. For metagenomic data, we will the more metagenomi-specific side of SPAdes - metaSPAdes. metaSPAdes offers many options that fit your preferences differently, mostly depending on the type of data you are willing to assemble. To explore them, type <code>metaspades.py -h</code>. Bear in mind that options will differ when selecting different tools (e.g.&nbsp;spades.py) and they should be tuned according to the input dataset and desired outcome.</p>
+<p>For short reads, we will use <a href="https://github.com/ablab/spades">SPAdes - St.&nbsp;Petersburg genome Assembler</a>, a suite of assembling tools containing different assembly pipelines. For metagenomic data, we will the more metagenomic-specific side of <code>SPAdes</code>: <code>metaSPAdes</code>.</p>
+<p><code>metaSPAdes</code> offers many options that fit your requirements differently, which mostly depend on the type of data you want to assemble. To explore them, type <code>metaspades.py -h</code>. Bear in mind that options will differ when selecting different tools (e.g.&nbsp;<code>spades.py</code> vs <code>metaspades.py</code>) and they should be tuned according to the input dataset and desired outcome.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -354,26 +345,35 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The default metaSPAdes pipeline executes an error correction step on the input fastqs. Since reads have already been polished in the past step, you can run metaspades without the error correction step.</p>
+<p>The default metaSPAdes pipeline executes an error correction step on the input fastqs. Since reads have already been polished in the previous step, you can run metaspades without the error correction step.</p>
 <p>You can see available metaspades parameters by typing the following:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">metaspades.py</span> <span class="at">-h</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This execution should be able to run on a 4-core, 32 GB ram laptop. However, the command above will NOT work on your VMs to prevent overload on the system if all VM users are running this command at the same time. If you are willing to launch this, the execution will take up to 20 minutes.</p>
+<p>This execution should be able to run on a 4-core, 16 GB RAM machine. However, we kindly ask you to NOT launch the execution on your VMs. Execution time would overall cover half of the session (metaSPAdes alone would take ~15 minutes). Also, you will prevent overload on the VMs and potential crashing, since VMs available resources barely cover metaSPAdes’ requirements.</p>
 </div>
 </div>
-<p>An explanation of involved parameters follows: * <code>-t 4</code> threads * <code>--only-assembler</code> skips the error correction step * <code>-m 10</code> memory limit in Gb * <code>-1 reads/oral_human_example_1_splitaa_trimmed_decontam.fastq</code> forward read * <code>-2 reads/oral_human_example_2_splitaa_trimmed_decontam.fastq</code> reverse read *<code>-o assembly_spades</code> output folder</p>
-<p>Once the assembly has completed, you will see plenty of files, in the <code>assembly_spades</code> folder including intermediate ones. <code>contigs.fasta</code> and <code>scaffolds.fasta</code> are the ones you are usually interested into for downstream analyses (e.g.&nbsp;binning and MAG generation). We will focus on <code>contigs.fasta</code> for this session, which is the same you are going to use in the coming practicals. Contigs in this file are ordered from the longest to the shortest. Without having to go all the way down to MAGs, you could sometimes identify strong taxonomic signals at the assembly stage with a quick blastn alignment.</p>
+<p>An explanation of selected parameters follows:</p>
+<ul>
+<li><code>-t 4</code> threads</li>
+<li><code>--only-assembler</code> skips the error correction step</li>
+<li><code>-m 5</code> memory limit in Gb</li>
+<li><code>-1 short_reads/input_1.fastq</code> forward reads</li>
+<li><code>-2 short_reads/input_2.fastq</code> reverse reads</li>
+<li><code>-o assembly_spades</code> output folder</li>
+</ul>
+<p>All output files (including intermediate ones) can be found in the <code>assembly_spades</code> folder. <code>contigs.fasta</code> and <code>scaffolds.fasta</code> are usually used for downstream analyses (e.g.&nbsp;binning and MAG generation). We will focus on <code>contigs.fasta</code> for this session, which is the same you are going to use in the coming practicals.</p>
+<p>Without having to go all the way down to MAGs, you can sometimes identify strong taxonomic signals at the assembly stage with a quick blastn alignment.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -385,8 +385,8 @@ Step
 </div>
 <div class="callout-body-container callout-body">
 <p>Take the first 100 lines of the sequence and perform a <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">blast</a> search (choose Nucleotide:Nucleotide from the set of options). Leave all other options as default on the search page. To select the first 100 lines of the assembly perform the following:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 101 assembly.bak/contigs.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The resulting output is going to look like this: <img src="assemblies/BLAST_assembly_spades_results.png" class="img-fluid" alt="Blast-n"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 101 assembly_spades/contigs.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The resulting output is going to have the following format (but look a bit better than this): <img src="assemblies/blast_corrupted.jpg" class="img-fluid" alt="Blast-n"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-question callout-titled">
@@ -403,10 +403,25 @@ Question
 <p>Does this make sense as a human oral bacterium? Are you surprised by this result at all?</p>
 </div>
 </div>
-<p>As mentioned in the theory talk, you might be interested in different statistics for your contigs file. <code>assembly_stats</code> is a tool that produces two simple tables in JSON format with various measures, including N10 to N50, GC content, longest contig length and more. The first section of the JSON corresponds to the scaffolds in the assembly, while the second corresponds to the contigs.</p>
+<p>As mentioned in the theory talk, you might be interested in different statistics for your contigs. <code>assembly_stats</code> is a tool that produces two simple tables in JSON format with various measures, including N10 to N50, GC content, longest contig length and more. The first section of the JSON corresponds to the scaffolds in the assembly, while the second corresponds to the contigs.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Contigs are ordered from the longest to the shortest.</p>
+</div>
+</div>
 <p>N50 is a measure to describe the quality of assembled genomes that are fragmented in contigs of different length, used to assess the sequence length of the shortest contig at 50% of the total assembly length (after sorting assembled contigs from longest to shortest).</p>
-<p>A (hopefully) clarifying picture to understand N50: <img src="assemblies/N50.png" style="width:70.0%;height:70.0%" alt="N50"></p>
-<p>Essentially, the higher this value, the better, as it means that longer (i.e.&nbsp;more complete) contigs cover a certain fraction of the final assembly. However, this only makes sense when thinking about alike metagenomes. Note that, like N50, other values can be considered e.g.&nbsp;N90 is the shortest contig length to cover 90 percent of the metagenome.</p>
+<p>A (hopefully) clarifying picture to understand N50, where N50==60: <img src="assemblies/N50.png" style="width:70.0%;height:70.0%" alt="N50"></p>
+<p>Essentially, the higher this value, the better, as it means that longer contigs cover half of the final assembly, making it less fragmented. However, this only makes sense when thinking about alike metagenomes.</p>
+<p>Note that, like N50, other values can be considered e.g.&nbsp;N90 is the shortest contig length to cover 90 percent of the metagenome.</p>
+<p>You can call <code>assembly_stats</code> with the following command:</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -417,10 +432,10 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">assembly-stats</span> assembly.bak/scaffolds.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">assembly-stats</span> assembly_spades/scaffolds.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>You will see a short output with a few statistics for your assembly. In lines with format <code>N50 = YYY, n = Z</code>, n represents the amount of sequences needed to cover 50% of the total assembly. A “gap” is any consecutive run of Ns (undetermined nucleotide bases) of any length. <code>N_count</code> is the total Ns (undetermined nucleotide bases) across the entire assembly.</p>
+<p>You will see a short output with a few statistics for your assembly. In lines with format <code>N50 = YYY, n = Z</code>, <code>n</code> represents the amount of sequences needed to cover 50% of the total assembly. A “gap” is any consecutive run of Ns (undetermined nucleotide bases) of any length. <code>N_count</code> is the total Ns (undetermined nucleotide bases) across the entire assembly.</p>
 <div class="callout callout-style-default callout-question callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -439,35 +454,29 @@ Question
 </section>
 <section id="long-reads-assemblies-flye" class="level1">
 <h1>Long-reads assemblies: Flye</h1>
-<p>For long-reads, we will use <a href="https://github.com/fenderglass/Flye">Flye</a>, which assembles single-molecule sequencing reads like PacBio and Oxford Nanopore Technologies (ONT) reads. As spades, Flye is a pipeline that takes care of assembly polishing. Similarly to assembly scaffolding, it tries to overcome long-reads base call error by comparing different reads that cover the same sequencing fragment. Flye’s parameters are quickly described in the help command (<code>flye -h</code>).</p>
-<p>Flye supports metagenomic assemblies with the <code>--meta</code> flag. Backup assemblies for this section can be found in the <code>Assembly</code> folder, starting with “<code>LR</code>”.</p>
-<div class="callout callout-style-default callout-step callout-titled">
+<p>For long-reads, we will use <a href="https://github.com/fenderglass/Flye">Flye</a>, which assembles single-molecule sequencing reads like PacBio and Oxford Nanopore Technologies (ONT) reads. Like SPAdes, Flye is a pipeline that takes care of assembling raw reads and polishing. Similarly to assembly scaffolding, it tries to overcome long-reads base call error by comparing different reads that cover the same sequencing fragment.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Step
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> flye_out</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">flye</span> <span class="at">--nano-raw</span> reads/ONT_example.fastq <span class="at">--out-dir</span> flye_out <span class="at">--threads</span> 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Flye’s parameters are described in the help command:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flye</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Flye supports metagenomic assemblies with the <code>--meta</code> flag.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Extra
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Note that we are not using the <code>--meta</code> flag. If you have some spare time, try to execute the same command with this flag and output folder “<code>LR_meta_assembly</code>”.</p>
-</div>
-</div>
+<p>The output for this section can be found in the <code>assembly_flye</code> folder. They have been generated with the following parameters:</p>
+<ul>
+<li><code>--nano-raw</code>: depending on the quality of data, a different pre-set can be used. For example, if reads were previously polished and adapters were removed, we could use <code>--nano-corr</code>. <code>--nano-hq</code> should be reserved, respectively, for corrected and higher-quality data. The same applies to the <code>pacbio</code> options.</li>
+<li><code>long_reads/file.fastq</code> input raw reads file</li>
+<li><code>--out-dir assembly_flye</code> output folder</li>
+<li><code>--threads 4</code> number of threads</li>
+</ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -478,12 +487,28 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Each execution will take around 5 minutes.</p>
+<p>Note that we did not use the <code>--meta</code> flag. The assembly output of the same command with the addition of <code>--meta</code> is in the folder <code>assembly_flye_meta</code>.</p>
 </div>
 </div>
-<p>Let’s have a first look at how assembly graphs look like. Bandage (a Bioinformatics Application for Navigating De novo Assembly Graphs Easily) is a program that creates interactive visualisations of assembly graphs. They can be useful for finding sections of the graph, such as rRNA, or identify specific parts of a genome. Note, you can install Bandage on your local system. With Bandage, you can zoom and pan around the graph and search for sequences, and much more.</p>
-<p>When looking at metaSPAdes output, it is usually recommended to launch Bandage on <code>assembly_graph.fastg</code>. However, our assembly is quite fragmented, so we will load <code>assembly_graph_after_simplification.gfa</code>.</p>
-<p>We will use Bandage to compare the two assemblies we have generated, Flye and metaSPAdes.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As before, we recommend to NOT launch this command during this session. Each execution would take around 5 minutes, but it would take up all CPUs.</p>
+</div>
+</div>
+</section>
+<section id="diving-into-assembly-graphs" class="level1">
+<h1>Diving into assembly graphs</h1>
+<p>Let’s have a first look at how assembly graphs look like. Bandage (a Bioinformatics Application for Navigating De novo Assembly Graphs Easily) is a program that creates interactive visualisations of assembly graphs. They can be useful for finding sections of the graph, such as rRNA, SNPs, or identify specific parts of a genome. Note, you can install Bandage on your local system. With Bandage, you can zoom and pan around the graph and search for sequences, and much more.</p>
+<p>We will use Bandage to compare the two assemblies we have generated with Flye and metaSPAdes. We will start with metaSPAdes.</p>
+<p>When looking at metaSPAdes files, it is usually recommended to launch Bandage on <code>assembly_graph.fastg</code>. However, our assembly is quite fragmented, so we will load <code>assembly_graph_after_simplification.gfa</code>.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -494,11 +519,11 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Bandage</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Bandage</span> <span class="kw">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the Bandage GUI perform the following:</p>
 <ul>
 <li>Select File -&gt; Load graph</li>
-<li>Navigate to Home/training/Data/Assembly/assembly.bak and open <code>assembly_graph_after_simplification.gfa</code></li>
+<li>Navigate to <code>/home/training/Assembly/assembly_spades</code> and open <code>assembly_graph_after_simplification.gfa</code></li>
 </ul>
 <p>Once loaded, you need to draw the graph. To do so, under the “Graph drawing” panel on the left side perform the following:</p>
 <ul>
@@ -520,6 +545,7 @@ Question
 <p>Can you find any large, complex parts of the metaSPAdes graph? If so, what do they look like?</p>
 </div>
 </div>
+<p>Now open another instance of Bandage as you previously did, and open <code>assembly_flye/assembly_graph.gfa</code>.</p>
 <div class="callout callout-style-default callout-question callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -533,6 +559,7 @@ Question
 <p>How does the Flye assembly differ from the one generated with metaSPAdes?</p>
 </div>
 </div>
+<p>As already mentioned, we launched Flye both with and without <code>--meta</code> on file <code>long_reads/ONT_example.fastq</code>. You can now repeat the procedure for this other graph.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -543,7 +570,8 @@ Extra
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We launched Flye both with and without <code>--meta</code> on file <code>reads/ONT_example.fastq</code>. This file actually comes from run ERR3775163, which can be browsed on <a href="https://www.ebi.ac.uk/ena/browser/home">ENA</a>. Have a look at sample metadata. Despite dealing with a long-read sample, can you understand why the assembly graph looks better for the execution without the <code>--meta</code> option?</p>
+<p>This file originally comes from run ERR3775163, which can be browsed on <a href="https://www.ebi.ac.uk/ena/browser/home">ENA</a>. Have a look at sample metadata.</p>
+<p>Despite dealing with a long-read sample, can you understand why the assembly graph looks better for the execution without the <code>--meta</code> option?</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -562,7 +590,41 @@ Extra
 </section>
 <section id="co-assemblies-megahit" class="level1">
 <h1>Co-assemblies: MEGAHIT</h1>
-<p>In the following steps of this exercise, we will perform co-assembly of multiple datasets. The first execution requires around 6-7 minutes to finish, the general suggestion is to run the first instruction and then rely on files in the <strong>coassembly.bak</strong> directory, which contains all expected results.</p>
+<p>In the following steps of this exercise, we will observe co-assembly of multiple datasets. Remember that co-assembly produces meaningful results only when applied to “similar” samples. This is the case for the raw reads we co-assembled: they originally come from a single sample that has been split for this exercise. In particular, we co-assembled more data coming from the same sample we assembled with metaSPAdes.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will find MEGAHIT output files in the <code>co_assembly_short_reads</code> folder.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As earlier, we these are the parameters we generated the co-assemblies with, but we recommend not to try in this instance.</p>
+</div>
+</div>
+<ul>
+<li><code>-1 [forward files comma-separated]</code></li>
+<li><code>-2 [reverse files comma-separated]</code></li>
+<li><code>-o co_assembly_megahit</code> output folder</li>
+<li><code>-t 4</code> number of threads</li>
+<li><code>--k-list 23,51,77</code> list of k-mer lengths</li>
+</ul>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -573,30 +635,23 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>First, make sure that output directories do not already exist, as MEGAHIT can’t overwrite existing directories. Bear in mind that backup assemblies for this exercise are in:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /home/training/Assembly/coassembly.bak</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can perform co-assemblies with MEGAHIT as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit</span> <span class="at">-1</span> reads/oral_human_example_1_splitaa_kneaddata_paired_1.fastq <span class="at">-2</span> reads/oral_human_example_1_splitaa_kneaddata_paired_2.fastq <span class="at">-o</span> coassembly1_new <span class="at">-t</span> 4 <span class="at">--k-list</span> 23,51,77 </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit</span> <span class="at">-1</span> reads/oral_human_example_1_splitaa_kneaddata_paired_1.fastq,reads/oral_human_example_1_splitab_kneaddata_paired_1.fastq <span class="at">-2</span> reads/oral_human_example_1_splitaa_kneaddata_paired_2.fastq,reads/oral_human_example_1_splitab_kneaddata_paired_2.fastq <span class="at">-o</span> coassembly2_new <span class="at">-t</span> 4 <span class="at">--k-list</span> 23,51,77 </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit</span> <span class="at">-1</span> reads/oral_human_example_1_splitaa_kneaddata_paired_1.fastq,reads/oral_human_example_1_splitab_kneaddata_paired_1.fastq,reads/oral_human_example_1_splitac_kneaddata_paired_1.fastq <span class="at">-2</span> reads/oral_human_example_1_splitaa_kneaddata_paired_2.fastq,reads/oral_human_example_1_splitab_kneaddata_paired_2.fastq,reads/oral_human_example_1_splitac_kneaddata_paired_2.fastq <span class="at">-o</span> coassembly3_new <span class="at">-t</span> 4 <span class="at">--k-list</span> 23,51,77</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Compare the results of the co-assembly contig file to the single-assembly one with <code>assembly_stats</code>.</p>
+<p>How do these assemblies differ from the one generated previously with metaSPAdes? Which one do you think is best?</p>
 </div>
 </div>
-<p>You should now have three different co-assemblies generated from different subsamples of the same data.</p>
-<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Step
+Extra
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Compare the results of the three contig files with <code>assembly_stats</code>. How do these assemblies differ from the one generated previously with metaSPAdes? Which one do you think is best?</p>
-<p>To generate assembly graphs for MEGAHIT output, execute:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit_toolkit</span> contig2fastg 77 final.contigs.fa <span class="op">&gt;</span> final.contigs.fastg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You might notice that MEGAHIT does not generate assembly graphs by default. To do so, execute:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit_toolkit</span> contig2fastg 77 co_assembly_megahit/final.contigs.fa <span class="op">&gt;</span> co_assembly_megahit/final.contigs.fastg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The samples used for the metaSPAdes assembly and the MEGAHIT co-assembly come from the same source. Do you see any relevant difference between the two assembly graphs?</p>
 </div>
 </div>
 </section>
