@@ -331,6 +331,18 @@
     ]
   },
   {
+    "objectID": "sessions/pangenome.html#example-analysis",
+    "href": "sessions/pangenome.html#example-analysis",
+    "title": "Pangenome analysis of metagenomic data",
+    "section": "Example analysis",
+    "text": "Example analysis\nExample analysis for all of today’s workshop is available here:\nls ~/course_dir/data_dir/MGnify_training_course/example_analysis/pangenome",
+    "crumbs": [
+      "Home",
+      "Sessions",
+      "Pangenome analysis of metagenomic data"
+    ]
+  },
+  {
     "objectID": "sessions/comparative_metagenomics.html",
     "href": "sessions/comparative_metagenomics.html",
     "title": "Comparative metagenomics",

@@ -259,6 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#celebrimbor-a-pipeline-for-pangenome-analysis-and-threshold-correction" id="toc-celebrimbor-a-pipeline-for-pangenome-analysis-and-threshold-correction" class="nav-link" data-scroll-target="#celebrimbor-a-pipeline-for-pangenome-analysis-and-threshold-correction">CELEBRIMBOR: a pipeline for pangenome analysis and threshold correction</a></li>
   <li><a href="#further-analysis-2" id="toc-further-analysis-2" class="nav-link" data-scroll-target="#further-analysis-2">Further analysis</a></li>
   </ul></li>
+  <li><a href="#example-analysis" id="toc-example-analysis" class="nav-link" data-scroll-target="#example-analysis">Example analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -531,9 +532,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="further-analysis-2">Further analysis</h3>
 <p>Try running CELEBRIMBOR with different parameters, such as <code>cgt_breaks</code> which defines the original rare and core thresholds to adjust, or <code>cgt_error</code>, which defines the false negative rate of CELEBRIMBOR.</p>
 <p>You can also try running with <code>clustering_method</code> set to <code>panaroo</code>, which uses <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02090-4">Panaroo</a>, a more accurate clustering method but less scalable than MMseqs2 (this will likely take a while to run). Also, when running Panaroo, try setting <code>panaroo_stringency</code> to <code>moderate</code> or <code>senstive</code>. Details on the effect of these parameters can be found <a href="https://gthlab.au/panaroo/#/gettingstarted/params">here</a>.</p>
-
-
 </section>
+</section>
+<section id="example-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="example-analysis">Example analysis</h2>
+<p>Example analysis for all of today’s workshop is available here:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/course_dir/data_dir/MGnify_training_course/example_analysis/pangenome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Apache 2.0</div></div></section></div></main> <!-- /main -->
