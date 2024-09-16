@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://course24.mgnify.org/index.html</loc>
-    <lastmod>2024-09-16T10:46:17.236Z</lastmod>
+    <lastmod>2024-09-16T14:38:41.275Z</lastmod>
   </url>
   <url>
-    <loc>https://course24.mgnify.org/sessions/pangenome.html</loc>
-    <lastmod>2024-09-16T10:46:17.240Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/mag_catalogues.html</loc>
-    <lastmod>2024-09-16T10:46:17.236Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/qc.html</loc>
-    <lastmod>2024-09-16T10:46:17.240Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/assemblies.html</loc>
-    <lastmod>2024-09-16T10:46:17.236Z</lastmod>
+    <loc>https://course24.mgnify.org/sessions/getting_data_from_mgnify.html</loc>
+    <lastmod>2024-09-16T14:38:41.279Z</lastmod>
   </url>
   <url>
     <loc>https://course24.mgnify.org/sessions/mags.html</loc>
-    <lastmod>2024-09-16T10:46:17.236Z</lastmod>
+    <lastmod>2024-09-16T14:38:41.283Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/assemblies.html</loc>
+    <lastmod>2024-09-16T14:38:41.279Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/qc.html</loc>
+    <lastmod>2024-09-16T14:38:41.283Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/mag_catalogues.html</loc>
+    <lastmod>2024-09-16T14:38:41.283Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/pangenome.html</loc>
+    <lastmod>2024-09-16T14:38:41.283Z</lastmod>
   </url>
   <url>
     <loc>https://course24.mgnify.org/sessions/genome_uploader.html</loc>
-    <lastmod>2024-09-16T10:46:17.236Z</lastmod>
+    <lastmod>2024-09-16T14:38:41.279Z</lastmod>
   </url>
 </urlset>

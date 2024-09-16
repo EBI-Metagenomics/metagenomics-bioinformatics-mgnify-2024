@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Germana Baldi">
-<meta name="dcterms.date" content="2024-09-10">
+<meta name="author" content="Mahfouz Shehu">
+<meta name="dcterms.date" content="2025-04-09">
 
-<title>The genome_uploader: tutorial – Metagenomics bioinformatics at MGnify (2024)</title>
+<title>Getting data from MGnify – Metagenomics bioinformatics at MGnify (2024)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -66,8 +32,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sessions/mag_catalogues.html" rel="next">
-<link href="../sessions/mags.html" rel="prev">
+<link href="../sessions/pangenome.html" rel="next">
+<link href="../sessions/mag_catalogues.html" rel="prev">
 <link href="../static/mgnify_logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -156,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/qc.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/genome_uploader.html">The genome_uploader: tutorial</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/qc.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/getting_data_from_mgnify.html">Getting data from MGnify</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -205,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/genome_uploader.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sessions/genome_uploader.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The genome_uploader: tutorial</span></a>
   </div>
 </li>
@@ -217,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sessions/getting_data_from_mgnify.html" class="sidebar-item-text sidebar-link">
+  <a href="../sessions/getting_data_from_mgnify.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Getting data from MGnify</span></a>
   </div>
 </li>
@@ -239,20 +205,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-genome_uploader-and-its-metadata-handling" id="toc-the-genome_uploader-and-its-metadata-handling" class="nav-link active" data-scroll-target="#the-genome_uploader-and-its-metadata-handling">The genome_uploader and its metadata handling</a></li>
-  <li><a href="#considerations" id="toc-considerations" class="nav-link" data-scroll-target="#considerations">Considerations</a></li>
-  <li><a href="#provided-materials" id="toc-provided-materials" class="nav-link" data-scroll-target="#provided-materials">Provided materials</a></li>
-  <li><a href="#registering-your-genomes" id="toc-registering-your-genomes" class="nav-link" data-scroll-target="#registering-your-genomes">Registering your genomes</a></li>
-  <li><a href="#submitting-your-genomes" id="toc-submitting-your-genomes" class="nav-link" data-scroll-target="#submitting-your-genomes">Submitting your genomes</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a>
+  <ul class="collapse">
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/qc.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/genome_uploader.html">The genome_uploader: tutorial</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sessions/qc.html">Sessions</a></li><li class="breadcrumb-item"><a href="../sessions/getting_data_from_mgnify.html">Getting data from MGnify</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">The genome_uploader: tutorial</h1>
+<h1 class="title">Getting data from MGnify</h1>
 </div>
 
 
@@ -261,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Germana Baldi <a href="mailto:germanab@ebi.ac.uk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-1719-5206" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    <p class="author">Mahfouz Shehu <a href="mailto:mahfouz@ebi.ac.uk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0002-9470-0368" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -278,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 10, 2024</p>
+      <p class="date">April 9, 2025</p>
     </div>
   </div>
   
@@ -290,237 +255,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This session will simulate genomes registration and submission with the <code>genome_uploader</code>, a tool developed within MGnify to facilitate the upload of bins and MAGs to the ENA (European Nucleotide Archive).</p>
-<p>Let’s first move to the <code>genomeuploader</code> root directory. Open a terminal and type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/genomeuploader/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="the-genome_uploader-and-its-metadata-handling" class="level2">
-<h2 class="anchored" data-anchor-id="the-genome_uploader-and-its-metadata-handling">The genome_uploader and its metadata handling</h2>
-<p>As Maira thoroughly explained in the theory session, bin and MAG submission undergoes 3 different steps:</p>
+<section id="objectives" class="level1">
+<h1>Objectives</h1>
 <ul>
-<li>Register binned and/or MAG samples</li>
-<li>Generate manifest files</li>
-<li>Submit assemblies with Webin-CLI</li>
+<li>Exploring MGnify Studies</li>
+<li>Exploring MGnify Analyses</li>
+<li>Metagenomic Assembled Genomes</li>
 </ul>
-<p>The <code>genome_uploader</code> takes care of these 3 steps. The first two are executed together, while the third one needs an extra command to submit previously generated files to ENA servers.</p>
-<div class="callout callout-style-default callout-step callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="instructions" class="level2">
+<h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
+<p>For this tutorial, you will need to start the predefined Jupyter notebook and complete the exercises within it. follow the steps below To start the notebook.</p>
+<ol type="1">
+<li>From your terminal, navigate to the right environment: <code>cd /home/training/venv/training_env3</code></li>
+<li>Activate the environment: <code>source bin/activate</code></li>
+<li>Navigate to the mgnify-tutorial directory: <code>cd /home/training/venv/training_env3/mgnify-tutorial</code></li>
+<li>Start the Jupyter notebook: <code>jupyter notebook</code></li>
+<li>This should have a server started at <code>http://localhost:8888</code>. Open this in your browser.</li>
+<li>Click on content and then on the <code>tutorial.ipynb</code> notebook as shown in the images below to start the tutorial.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="getting_data_from_mgnify/content_nav_image.png" class="img-fluid figure-img"></p>
+<figcaption>Jupyter Notebook</figcaption>
+</figure>
 </div>
-<div class="callout-title-container flex-fill">
-Step
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="getting_data_from_mgnify/tutorial_nav_image.png" class="img-fluid figure-img"></p>
+<figcaption>Jupyter Notebook</figcaption>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Your task is to generate a tsv table with sample metadata describing the genomes you want to register and submit.</p>
-</div>
-</div>
-<p>Similarly to yesterday’s practical, you will be free to insert values as you wish, as long as regular expressions and mandatory fields described in the checklist are respected. You will need to select whether you are uploading bins or MAGs, and select your checklist accordingly.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To register a sample, a relative set of metadata must be filled according to the selected checklist. Some of them are mandatory, while some others are only recommended. The <code>genome_uploader</code> will automatically pick the right checklist depending on the input flag:</p>
-<ul>
-<li><strong>GSC MIMAG</strong> for MAG samples (<code>-mag</code>)</li>
-<li><strong>ENA binned metagenome</strong> for binned samples (<code>-bin</code>)</li>
-</ul>
-</div>
-</div>
-<p>The main difference between bins and MAGs lies in the uniqueness and the quality of your data. Within an ENA study, there should only be one MAG per species, which should be the highest quality representative genome per predicted species.</p>
-<p>The generated table will be similar to the following:</p>
-<div class="table-responsive">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>genome_name</th>
-<th>genome_path</th>
-<th>accessions</th>
-<th>assembly_software</th>
-<th>binning_software</th>
-<th>binning_parameters</th>
-<th>stats_generation_software</th>
-<th>completeness</th>
-<th>contamination</th>
-<th>genome_coverage</th>
-<th>metagenome</th>
-<th>co-assembly</th>
-<th>broad_environment</th>
-<th>local_environment</th>
-<th>environmental_medium</th>
-<th>rRNA_presence</th>
-<th>taxonomy_lineage</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>L_sakei</td>
-<td>path/to/L_sakei.fa.gz</td>
-<td>SRR11910206</td>
-<td>megahit_v1.2.9</td>
-<td>metabat_v1.2</td>
-<td>default</td>
-<td>CheckM2_v1.0.1</td>
-<td>99.7</td>
-<td>0.38</td>
-<td>27</td>
-<td>marine sediment metagenome</td>
-<td>False</td>
-<td>marine</td>
-<td>coast</td>
-<td>coastal sediment</td>
-<td>True</td>
-<td>d__Bacteria;p__Firmicutes;c__Bacilli;o__Lactobacillales;f__Lactobacillaceae;g__Latilactobacillus;s__Lactobacillus sakei</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>With columns indicating:</p>
-<ul>
-<li><code>genome_name</code>: genome id (unique string identifier)</li>
-<li><code>accessions</code>: run(s) or assembly(ies) the genome was generated from (DRR/ERR/SRRxxxxxx for runs, DRZ/ERZ/SRZxxxxxx for assemblies). If the genome was generated by a co-assembly of multiple runs, separate them with a comma.</li>
-<li><code>assembly_software</code>: name of the assembly software used, with version (e.g.&nbsp;metaSPAdes_4.0.0)</li>
-<li><code>binning_software</code>: name of the binning software used, with version (e.g.&nbsp;metabat_v1.2)</li>
-<li><code>binning_parameters</code>: binning parameters</li>
-<li><code>stats_generation_software</code>: name of the statistics generation software used, with version (e.g.checkM_v1)</li>
-<li><code>completeness</code>: <code>float</code></li>
-<li><code>contamination</code>: <code>float</code></li>
-<li><code>rRNA_presence</code>: <code>True/False</code> if all among 5S, 16S, and 23S genes, and at least 18 tRNA genes, have been detected in the genome</li>
-<li><code>NCBI_lineage</code>: full NCBI lineage, either in tax ids (<code>integers</code>) or <code>strings</code>. Format: x;y;z;…</li>
-<li><code>metagenome</code>: needs to be listed in the taxonomy tree <a href="https://www.ebi.ac.uk/ena/browser/view/408169?show=tax-tree">here</a> (you might need to press “Tax tree - Show” in the right most section of the page)</li>
-<li><code>co-assembly</code>: <code>True/False</code>, whether the genome was generated from a co-assembly.</li>
-<li><code>genome_coverage</code> : genome coverage against raw reads</li>
-<li><code>genome_path</code>: path to genome to upload (already compressed)</li>
-<li><code>broad_environment</code>: <code>string</code> (explanation following)</li>
-<li><code>local_environment</code>: <code>string</code> (explanation following)</li>
-<li><code>environmental_medium</code>: <code>string</code> (explanation following)</li>
-</ul>
-<p>According to ENA checklist’s guidelines, ‘broad_environment’ describes the broad ecological context of a sample - desert, taiga, coral reef, … ‘local_environment’ is more local - lake, harbour, cliff, … ‘environmental_medium’ is either the material displaced by the sample, or the one in which the sample was embedded prior to the sampling event - air, soil, water, … For host-associated metagenomic samples, the three variables can be defined similarly to the following example for the chicken gut metagenome: “chicken digestive system”, “digestive tube”, “caecum”.</p>
-<p>If your genome was generated from raw reads available on the INSDC (including ENA and GenBank), the <code>genome_uploader</code> will automatically inherit relevant metadata for that sample to make. For example, if you are submitting a MAG generated from read SRR11910206, some of the sample metadata will be inherited for the genome sample registration (e.g.&nbsp;<code>collection_date</code>, <code>isolation_source</code>).</p>
-<p>Take a look at the <a href="https://www.ebi.ac.uk/ena/browser/view/ERC000047">GCS MIMAG checklist</a> as a reference. You will notice that bins and MAGs checklists are very similar, as mandatory fields are the same. You can compare it with the <a href="https://www.ebi.ac.uk/ena/browser/view/ERC000050">bins checklist</a> yourself.</p>
-</section>
-<section id="considerations" class="level2">
-<h2 class="anchored" data-anchor-id="considerations">Considerations</h2>
-<p>Here we suggest a hypothetical scenario you might want to follow to make the metadata search more interesting</p>
-<p>Suppose your original dataset was small, very small, and it only generated three bins. You’d be surprised but yes, it happens sometimes. Two of these bins represent the same species, but their statistics are extremely different. One assembled quite well, while the other one was highly contaminated. One would be considered “medium quality”, while the other “high quality”.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The INSDC defines a genome as high-quality when:</p>
-<p><img src="genome_uploader/high-quality-def-genomeUploader.png" class="img-fluid"></p>
-</div>
-</div>
-<p>According to what we previously mentioned, two of these bins could be categorised as MAGs, while the lower-quality bin would stay as a bin.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Taxonomies can be listed in either NCBI or GTDB format. An example of valid taxonomies you could use in this scenario could be:</p>
-<ul>
-<li>GTDB: <code>d__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Enterobacterales;f__Vibrionaceae;g__Photobacterium;s__Photobacterium piscicola</code></li>
-<li>NCBI: <code>1;131567;2759;33154;4751;451864;5204;452284;1538075;162474;742845;55193;76775</code></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="provided-materials" class="level2">
-<h2 class="anchored" data-anchor-id="provided-materials">Provided materials</h2>
-<p>You can follow <a href="https://docs.google.com/spreadsheets/d/1eT05boK8MkGq6MNOBMa1w0qHD-n5e5aU03_nu4CBBiA/edit?usp=sharing">this link</a> to find a Google Spreasheet called <code>genome_uploader_template</code>.</p>
-<p>This spreadsheet contains a tab for every webin account assigned to this course’s users. Identify the tab assigned to your webin profile. You can use the table template in that tab to prepare a tsv as input file for the genome_uploader. Once you have filled in the table with all required values, export it as tsv (<code>File</code> –&gt; <code>Download</code> –&gt; <code>Tab-separated values (.tsv)</code>).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Two tables need to be generated if you are submitting bins and MAGs - one for bins and one for MAGs.</p>
-</div>
-</div>
-</section>
-<section id="registering-your-genomes" class="level2">
-<h2 class="anchored" data-anchor-id="registering-your-genomes">Registering your genomes</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>As you did yesterday, you will need to generate a study from your webin profile, and add it to the following command under <code>UPLOAD_STUDY</code>.</p>
-</div>
-</div>
-<p>After generating the table, it will be time to launch the <code>genome_uploader</code>. You can do so by opening a terminal and typing:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> genome_upload.py <span class="at">-u</span> UPLOAD_STUDY <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>--genome_info METADATA_FILE <span class="er">(</span><span class="ex">--mags</span> <span class="kw">|</span> <span class="ex">--bins</span><span class="kw">)</span> <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">--webin</span> WEBIN_ID <span class="at">--password</span> PASSWORD <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>--centre_name CENTRE_NAME <span class="pp">[--</span><span class="ss">out</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">force</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Where:</p>
-<ul>
-<li><code>-u UPLOAD_STUDY</code>: study accession for genomes upload to ENA (in format ERPxxxxxx or PRJEBxxxxxx)</li>
-<li><code>---genome_info METADATA_FILE</code> : genomes metadata file in tsv format</li>
-<li><code>-m, --mags, --b, --bins</code>: select for bin or MAG upload</li>
-<li><code>--out</code>: output folder (default: working directory)</li>
-<li><code>--force</code>: sample xmls won’t be regenerated automatically if a previous xml already exists. If any metadata or value in the tsv table changes, <code>--force</code> will allow xml regeneration.</li>
-<li><code>--webin WEBIN_ID</code>: webin id (format: Webin_XXXXX)</li>
-<li><code>--password PASSWORD</code>: webin password</li>
-<li><code>--centre_name CENTRE_NAME</code>: name of the centre generating and uploading genomes</li>
-</ul>
-<p>This step will also generate manifest files.</p>
-</section>
-<section id="submitting-your-genomes" class="level2">
-<h2 class="anchored" data-anchor-id="submitting-your-genomes">Submitting your genomes</h2>
-<p>After checking that all needed manifests exist, it is necessary to use ENA’s webin-cli resource to upload genomes.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> ~/JAR/webin-cli-8.0.0.jar <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>-context=genome <span class="at">-manifest</span><span class="op">=</span>MANIFEST_FILE <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>-userName=<span class="st">"Webin-XXX"</span> <span class="at">-password</span><span class="op">=</span><span class="st">"YYY"</span> <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>-test <span class="at">-submit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>Apache 2.0</div></div></section></div></main> <!-- /main -->
@@ -946,13 +713,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../sessions/mags.html" class="pagination-link" aria-label="MAG Generation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">MAG Generation</span>
+      <a href="../sessions/mag_catalogues.html" class="pagination-link" aria-label="MAG Catalogues">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">MAG Catalogues</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sessions/mag_catalogues.html" class="pagination-link" aria-label="MAG Catalogues">
-        <span class="nav-page-text">MAG Catalogues</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sessions/pangenome.html" class="pagination-link" aria-label="Pangenome analysis of metagenomic data">
+        <span class="nav-page-text">Pangenome analysis of metagenomic data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
