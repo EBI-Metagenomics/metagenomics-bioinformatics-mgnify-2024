@@ -9,7 +9,7 @@
 <meta name="author" content="Jennifer Lu">
 <meta name="author" content="Varsha Kale">
 <meta name="author" content="Christian Atallah">
-<meta name="dcterms.date" content="2024-08-30">
+<meta name="dcterms.date" content="2024-09-16">
 
 <title>Quality control and filtering of the raw sequence files – Metagenomics bioinformatics at MGnify (2024)</title>
 <style>
@@ -305,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 30, 2024</p>
+      <p class="date">September 16, 2024</p>
     </div>
   </div>
   
@@ -342,7 +342,7 @@ Keeping your results organised
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>/home/training/qc_results</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">xhost</span> +</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You will get the message “access control disabled, clients can connect from any host” Now start the Docker container:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> microbiomeinformatics/biata-qc-assembly:v2021</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/qc-practical-2024:v1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="quality-control-and-filtering-of-the-raw-sequencing-read-files" class="level2">
 <h2 class="anchored" data-anchor-id="quality-control-and-filtering-of-the-raw-sequencing-read-files">Quality control and filtering of the raw sequencing read files</h2>
@@ -945,22 +945,17 @@ Navigate to skin folder and run quality control.
 <section id="running-the-practical-externally" class="level2">
 <h2 class="anchored" data-anchor-id="running-the-practical-externally">Running the practical externally</h2>
 <p>We need to first fetch the practical datasets.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">or</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--partial</span> <span class="at">--progress</span> rsync://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--partial</span> <span class="at">--progress</span> rsync://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once downloaded, extract the files from the tarball:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We also need the trimmomatic binary</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> quality</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wget</span> http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unzip</span> Trimmomatic-0.39.zip</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now pull the docker container and set the above quality directory as DATADIR.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker</span> pull microbiomeinformatics/biata-qc-assembly:v2021</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">quality</span> <span class="va">directory</span>}</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xhost</span> +</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now pull the docker container and export the above directories.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/microbiome-informatics/qc-practical-2024:v1</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">quality</span> <span class="va">directory</span>}</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">output</span> <span class="va">directory</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You will see the message “access control disabled, clients can connect from any host”</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> microbiomeinformatics/biata-qc-assembly:v2021</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/qc-practical-2024:v1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The container has the following tools installed:</p>
 <ul>
 <li>fastqc</li>
