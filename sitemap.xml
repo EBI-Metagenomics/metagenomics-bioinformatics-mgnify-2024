@@ -2,34 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://course24.mgnify.org/index.html</loc>
-    <lastmod>2024-09-14T08:50:42.287Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/virify.html</loc>
-    <lastmod>2024-09-14T08:50:42.299Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/mags.html</loc>
-    <lastmod>2024-09-14T08:50:42.287Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/assemblies.html</loc>
-    <lastmod>2024-09-14T08:50:42.287Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/qc.html</loc>
-    <lastmod>2024-09-14T08:50:42.291Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/mag_catalogues.html</loc>
-    <lastmod>2024-09-14T08:50:42.287Z</lastmod>
+    <lastmod>2024-09-16T10:32:04.491Z</lastmod>
   </url>
   <url>
     <loc>https://course24.mgnify.org/sessions/pangenome.html</loc>
-    <lastmod>2024-09-14T08:50:42.291Z</lastmod>
+    <lastmod>2024-09-16T10:32:04.495Z</lastmod>
   </url>
   <url>
-    <loc>https://course24.mgnify.org/sessions/comparative_metagenomics.html</loc>
-    <lastmod>2024-09-14T08:50:42.287Z</lastmod>
+    <loc>https://course24.mgnify.org/sessions/mag_catalogues.html</loc>
+    <lastmod>2024-09-16T10:32:04.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/qc.html</loc>
+    <lastmod>2024-09-16T10:32:04.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/assemblies.html</loc>
+    <lastmod>2024-09-16T10:32:04.491Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/mags.html</loc>
+    <lastmod>2024-09-16T10:32:04.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/genome_uploader.html</loc>
+    <lastmod>2024-09-16T10:32:04.495Z</lastmod>
   </url>
 </urlset>
