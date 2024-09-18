@@ -335,17 +335,17 @@ Activate virtual environment
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Download required dataset
+Check data is loaded correctly
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For this practical we will need to a sample dataset. Downoload and extract the files from the tarball.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training</span>
+<p>For this practical we will need to a sample dataset. The sample dataset should already have all the data you need in <code>/home/training/QC_session/quality</code>. If not, you should download and decompress the data as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/QC_session</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># you should now have the quality subdirectory in your /home/training folder. All the data you will need to run the practicals will be in this subdirectory</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># you should now have the quality subdirectory in your /home/training/QC_session. All the data you will need to run the practicals will be in this subdirectory</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#you can now remove the quality.tar.gz</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quality.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -360,16 +360,16 @@ Keeping your results organised
 </div>
 <div class="callout-body-container callout-body">
 <p>This practical (and the others) will generate quite a few output files from the different commands. It’s therefore recommended you keep your results well organised into different subdirectories, starting with the creation of a <code>qc_results</code> directory that will contain everything else.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /home/training/qc_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>you should now have in your <code>/home/training</code> directory, the following subdirectories (<code>quality</code> and <code>qc_results</code>). Make sure both are there before moving onto the next steps.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /home/training/QC_session/qc_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>you should now have in your <code>/home/training/QC_session</code> directory, the following subdirectories (<code>quality</code> and <code>qc_results</code>). Make sure both are there before moving onto the next steps.</p>
 </div>
 </div>
 <p>For this tutorial, you’ll need to move into the working directory (/home/training/quality) and start a Docker container. Set the variables <code>DATADIR</code> and <code>RESDIR</code> as instructed.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/quality</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/quality</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>/home/training/quality</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/qc_results</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>/home/training/qc_results</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/QC_session/quality</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/QC_session/quality</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>/home/training/QC_session/quality</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/QC_session/qc_results</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>/home/training/QC_session/qc_results</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">xhost</span> +</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You will get the message “access control disabled, clients can connect from any host” Now start the Docker container:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/qc-practical-2024:v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -432,7 +432,7 @@ Now on your computer, select the folder icon.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Navigate to home → quality → fastqc_results in your VM</p>
+<p>Navigate to Files → Home → QC_session → qc_results → fastqc_results → oral in your VM</p>
 <p>Right-click on file <code>oral_human_example_1_splitaa_fastqc.html</code>, select ‘open with other application’, and open with Firefox.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -538,7 +538,7 @@ Now on your computer, select the folder icon.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Navigate to home → quality → multiqc_results</p>
+<p>Navigate to Files → Home → QC_session → qc_results → multiqc_results → oral in your VM</p>
 <p>Right-click on file <code>multiqc_report.html</code>, select ‘open with other application’, and open with Firefox.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1058,8 +1058,9 @@ Additional Excercise (code)
 <span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="co">#generate MultiQC report of pre- and post-QC fastq files</span></span>
 <span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/skin <span class="at">-o</span> /opt/results/multiqc_results/skin</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="co">#visualise multiQC reports in web browser.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/skin/<span class="pp">*</span>.html</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="co">#visualise multiQC reports in web browser.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
