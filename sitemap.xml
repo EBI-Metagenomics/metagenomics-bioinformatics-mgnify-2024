@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://course24.mgnify.org/index.html</loc>
-    <lastmod>2024-09-18T15:49:19.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/getting_data_from_mgnify.html</loc>
-    <lastmod>2024-09-18T15:49:19.226Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/mags.html</loc>
-    <lastmod>2024-09-18T15:49:19.230Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/assemblies.html</loc>
-    <lastmod>2024-09-18T15:49:19.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/qc.html</loc>
-    <lastmod>2024-09-18T15:49:19.230Z</lastmod>
-  </url>
-  <url>
-    <loc>https://course24.mgnify.org/sessions/mag_catalogues.html</loc>
-    <lastmod>2024-09-18T15:49:19.230Z</lastmod>
-  </url>
-  <url>
     <loc>https://course24.mgnify.org/sessions/pangenome.html</loc>
-    <lastmod>2024-09-18T15:49:19.230Z</lastmod>
+    <lastmod>2024-09-19T09:23:37.851Z</lastmod>
   </url>
   <url>
     <loc>https://course24.mgnify.org/sessions/genome_uploader.html</loc>
-    <lastmod>2024-09-18T15:49:19.226Z</lastmod>
+    <lastmod>2024-09-19T09:23:37.847Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/mag_catalogues.html</loc>
+    <lastmod>2024-09-19T09:23:37.850Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/mags.html</loc>
+    <lastmod>2024-09-19T09:23:37.850Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/index.html</loc>
+    <lastmod>2024-09-19T09:23:37.845Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/qc.html</loc>
+    <lastmod>2024-09-19T09:23:37.852Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/getting_data_from_mgnify.html</loc>
+    <lastmod>2024-09-19T09:23:37.847Z</lastmod>
+  </url>
+  <url>
+    <loc>https://course24.mgnify.org/sessions/assemblies.html</loc>
+    <lastmod>2024-09-19T09:23:37.846Z</lastmod>
   </url>
 </urlset>
