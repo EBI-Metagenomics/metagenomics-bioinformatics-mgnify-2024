@@ -366,15 +366,16 @@ Downloading data
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For this practical we will need to a sample dataset. The sample dataset should already be in <code>/home/training/QC_session/quality</code>. If not, you should download and decompress the data as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/QC_session</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># you should now have the quality subdirectory in your /home/training/QC_session. All the data you will need to run the practicals will be in this subdirectory</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#you can now remove the quality.tar.gz</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quality.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/training/QC_session</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/QC_session</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># you should now have the quality subdirectory in your /home/training/QC_session. All the data you will need to run the practicals will be in this subdirectory</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#you can now remove the quality.tar.gz</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quality.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -400,7 +401,8 @@ Keeping your results organised
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/QC_session/qc_results</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>/home/training/QC_session/qc_results</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">xhost</span> +</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You will get the message “access control disabled, clients can connect from any host” Now start the Docker container:</p>
+<p>You will get the message “access control disabled, clients can connect from any host”</p>
+<p>Now start the Docker container:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/qc-practical-2024:v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="quality-control-and-filtering-of-the-raw-sequencing-read-files" class="level2">
@@ -686,7 +688,7 @@ Run
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/data/decontamination/GRCh38_chr10.fasta /opt/data/decontamination/phix.fasta <span class="op">&gt;</span> /opt/data/decontamination/chr10_phix.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>You will often need to build indices for large sequence files - including sequencing files and reference files - to speed up computation. To build a bowtie index for our new concatenated PhiX-chr10 file:</p>
+<p>You will often need to build indices for large sequence files - including sequencing files and reference files - to speed up computation. To build a bowtie index for our new concatenated PhiX-chr10 file, run the following script. <code>NOTE.</code> The indexing step can take a while to run (~ 2 -3 minutes for the example used in this practical)</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -697,7 +699,17 @@ Run
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2-build</span> /opt/data/decontamination/chr10_phix.fasta /opt/data/decontamination/chr10_phix.index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2-build</span> /opt/data/decontamination/chr10_phix.fasta /opt/data/decontamination/chr10_phix.index</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check output - indexed files end with *bt2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/decontamination/chr10_phix.index<span class="pp">*</span>bt2</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.1.bt2</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.2.bt2</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.3.bt2</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.4.bt2</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.rev.1.bt2</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.rev.2.bt2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -710,10 +722,10 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It is possible to automatically download a pre-indexed human genome in bowtie2</p>
+<p>It is possible to automatically download a pre-indexed human genome in bowtie2. Commonly-used bowtie2 indices can be downloaded from https://bowtie-bio.sourceforge.net/bowtie2/index.shtml.</p>
 </div>
 </div>
-<p>Now we are going to use our new indexed chr10_phix reference and decontaminate our already quality-filtered reads from <code>fastp</code>. Using bowtie2 again:</p>
+<p>Now we are going to use our new indexed chr10_phix reference and decontaminate our already quality-filtered reads from <code>fastp</code>. Run bowtie2 as below. <code>NOTE.</code> This alignment step can take a few minutes to run.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -729,6 +741,14 @@ Run
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-x</span> /opt/data/decontamination/chr10_phix.index <span class="dt">\</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">--un-conc-gz</span>  /opt/results/cleaned/oral/oral_human_example.fastq.gz <span class="dt">\</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">--very-sensitive</span> <span class="at">--dovetail</span> <span class="op">&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>-1</code> - input read 1</li>
+<li><code>-2</code> - input read 2</li>
+<li><code>-x</code> - reference genome index filename prefix (minus trailing .X.bt2)</li>
+<li><code>--un-con-gz</code> - write pairs that didn’t align concordantly to assigned <filepath> #this will be your cleaned reads</filepath></li>
+<li><code>--very-sensitive</code> - set stringent parameters to call reads as a mapped read (Same as -D 20 -R 3 -N 0 -L 20 -i S,1,0.50)</li>
+<li><code>--dovetail</code> - concordant when mates extend past each other (ie. the paired alignments overlaps one another )</li>
+</ul>
 </div>
 </div>
 <div class="callout callout-style-default callout-question callout-titled">
@@ -1098,15 +1118,24 @@ Additional Excercise (code)
 <section id="running-the-practical-externally" class="level2">
 <h2 class="anchored" data-anchor-id="running-the-practical-externally">Running the practical externally</h2>
 <p>We need to first fetch the practical datasets.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--partial</span> <span class="at">--progress</span> rsync://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> QC_session</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> QC_session</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--partial</span> <span class="at">--progress</span> rsync://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once downloaded, extract the files from the tarball:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quality.tar.gz</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> qc_results</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> quality</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now pull the docker container and export the above directories.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/microbiome-informatics/qc-practical-2024:v2</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">quality</span> <span class="va">directory</span>}</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">output</span> <span class="va">directory</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">qc_results</span> <span class="va">directory</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You will see the message “access control disabled, clients can connect from any host”</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/qc-practical-2024:v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The container has the following tools installed:</p>
