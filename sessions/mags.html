@@ -660,8 +660,8 @@ Step
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># take the file without the header; leave only columns 1, 12 and 13; replace tabs with commas</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n+2</span> MAGs_checkm.tab <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1,12,13</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">'\t'</span> <span class="st">','</span> <span class="op">&gt;&gt;</span> checkm1_quality_report.csv</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot (apologies for the typo in the script name...)</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">complenetess_vs_contamination.py</span> <span class="at">-i</span> checkm1_quality_report.csv <span class="at">-o</span> checkm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">completeness_vs_contamination.py</span> <span class="at">-i</span> checkm1_quality_report.csv <span class="at">-o</span> checkm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-step callout-titled">
@@ -682,7 +682,7 @@ Step
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n+2</span> checkm2_quality_report.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-3</span>  <span class="kw">|</span> <span class="fu">tr</span> <span class="st">'\t'</span> <span class="st">','</span> <span class="op">&gt;&gt;</span> checkm2_quality_report.csv</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">complenetess_vs_contamination.py</span> <span class="at">-i</span> checkm2_quality_report.csv <span class="at">-o</span> checkm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">completeness_vs_contamination.py</span> <span class="at">-i</span> checkm2_quality_report.csv <span class="at">-o</span> checkm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>You should now have files checkm1.png and checkm2.png to compare the quality predictions between the two tools. To open the png files, use the file browser (grey folder icon in the left-hand side menu) and navigate to /Home/Binning/assemblies</p>
