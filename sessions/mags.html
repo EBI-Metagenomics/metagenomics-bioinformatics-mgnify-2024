@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tatiana Gurbich">
-<meta name="dcterms.date" content="2023-10-05">
+<meta name="author" content="Ekaterina Sakharova">
+<meta name="dcterms.date" content="2024-09-24">
 
 <title>MAG Generation – Metagenomics bioinformatics at MGnify (2024)</title>
 <style>
@@ -247,8 +248,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#preparing-to-run-metabat" id="toc-preparing-to-run-metabat" class="nav-link" data-scroll-target="#preparing-to-run-metabat">Preparing to run MetaBAT</a></li>
   <li><a href="#running-metabat" id="toc-running-metabat" class="nav-link" data-scroll-target="#running-metabat">Running MetaBAT</a></li>
   <li><a href="#running-checkm" id="toc-running-checkm" class="nav-link" data-scroll-target="#running-checkm">Running CheckM</a></li>
+  <li><a href="#comparing-checkm-and-checkm2" id="toc-comparing-checkm-and-checkm2" class="nav-link" data-scroll-target="#comparing-checkm-and-checkm2">Comparing CheckM and CheckM2</a></li>
   </ul></li>
-  <li><a href="#visualizing-the-phylogenetic-tree" id="toc-visualizing-the-phylogenetic-tree" class="nav-link" data-scroll-target="#visualizing-the-phylogenetic-tree">Visualizing the phylogenetic tree</a></li>
+  </ul></li>
+  <li><a href="#visualizing-the-phylogenetic-tree" id="toc-visualizing-the-phylogenetic-tree" class="nav-link" data-scroll-target="#visualizing-the-phylogenetic-tree">Visualizing the phylogenetic tree</a>
+  <ul class="collapse">
+  <li><a href="#gtdb-tk-taxonomy" id="toc-gtdb-tk-taxonomy" class="nav-link" data-scroll-target="#gtdb-tk-taxonomy">GTDB-Tk taxonomy</a></li>
+  <li><a href="#how-to-deal-with-unclassified-bins" id="toc-how-to-deal-with-unclassified-bins" class="nav-link" data-scroll-target="#how-to-deal-with-unclassified-bins">How to deal with unclassified bins?</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,11 +269,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Authors</div>
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
     <p class="author">Tatiana Gurbich <a href="mailto:tgurbich@ebi.ac.uk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-7537-8871" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="www.ebi.ac.uk">
+            EMBL-EBI
+            </a>
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Ekaterina Sakharova <a href="mailto:kates@ebi.ac.uk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0001-6867-2039" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -284,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 5, 2023</p>
+      <p class="date">September 24, 2024</p>
     </div>
   </div>
   
@@ -305,8 +321,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<p>For this tutorial, you will need to first start the docker container by running:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-it</span> <span class="at">-v</span> /home/training/Binning:/opt/data microbiomeinformatics/mgnify-ebi-2020-binning</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For this tutorial, you will need to first activate the virtual environment and start the docker container by running the following commands in the terminal:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">virtualenv</span> /home/training/venv/training_env6/bin/activate</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-it</span> <span class="at">-v</span> /home/training/Binning:/opt/data quay.io/microbiome-informatics/mags-practical-2024:v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>password: training</em></p>
 </section>
 <section id="generating-metagenome-assembled-genomes" class="level2">
@@ -398,27 +416,28 @@ Tip
 <p>If you wanted to generate the <code>input.fastq.sam.bam</code> file yourself, you would run the following commands:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: you will not be able to run subsequent steps until this workflow is completed because you need</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the input.fastq.sam.bam file to calculate contig depth in the next step.</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If you would like to practice this now, back up the input.fastq.sam.bam file that we provided first,</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># as these steps will take a while:</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies/</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> input.fastq.sam.bam input.fastq.sam.bam.bak</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># index the contigs file that was produced by metaSPAdes:</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> index contigs.fasta</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># fetch the reads from ENA</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR011/ERR011322/ERR011322_1.fastq.gz</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR011/ERR011322/ERR011322_2.fastq.gz</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># map the original reads to the contigs:</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem contigs.fasta ERR011322_1.fastq ERR011322_2.fastq <span class="op">&gt;</span> input.fastq.sam</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># reformat the file with samtools:</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-Sbu</span> input.fastq.sam <span class="op">&gt;</span> junk </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort junk <span class="at">-o</span> input.fastq.sam.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the input.fastq.sam.bam file to calculate contig depth in the next step. In the interest of time, we</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># suggest that if you would like to try the commands, you run them after you complete the practical.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If you would like to practice generating the bam file, back up the input.fastq.sam.bam file that we</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># provided first, as these steps will take a while:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies/</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> input.fastq.sam.bam input.fastq.sam.bam.bak</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># index the contigs file that was produced by metaSPAdes:</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> index contigs.fasta</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># fetch the reads from ENA</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR011/ERR011322/ERR011322_1.fastq.gz</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR011/ERR011322/ERR011322_2.fastq.gz</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># map the original reads to the contigs:</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem contigs.fasta ERR011322_1.fastq ERR011322_2.fastq <span class="op">&gt;</span> input.fastq.sam</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># reformat the file with samtools:</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-Sbu</span> input.fastq.sam <span class="op">&gt;</span> junk </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort junk <span class="at">-o</span> input.fastq.sam.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -580,13 +599,12 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>STOP!!!! The following command fails. Please use backups instead, inspect the command visually only:</p>
+<p>This command uses a lot of memory. Do not run anything else while executing it.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># INSPECT BUT DO NOT RUN!</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">checkm</span> lineage_wf <span class="at">-x</span> fa contigs.fasta.metabat-bins2000 checkm_output <span class="at">--tab_table</span> <span class="at">-f</span> MAGs_checkm.tab <span class="at">--reduced_tree</span> <span class="at">-t</span> 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">checkm</span> lineage_wf <span class="at">-x</span> fa contigs.fasta.metabat-bins2000 checkm_output <span class="at">--tab_table</span> <span class="at">-f</span> MAGs_checkm.tab <span class="at">--reduced_tree</span> <span class="at">-t</span> 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Due to memory constraints (&lt; 40 GB), we have added the option <code>--reduced_tree</code> to build the phylogeny with a reduced number of reference genomes.</p>
 <p>Once the <strong>lineage_wf</strong> analysis is done, the reference tree can be found in <strong>checkm_output/storage/tree/concatenated.tre</strong>.</p>
-<p>Additionally, you will have the taxonomic assignment and quality assessment of each bin in the file <strong>MAGs_checkm.tab</strong> with the corresponding level of <strong>completeness</strong>, <strong>contamination</strong>, and <strong>strain heterogeneity</strong> (Fig. 2). A quick way to infer the overall quality of the bin is to calculate the level of **(completeness - 5*contamination)<strong>. You should be aiming for an overall score of at least </strong>70-80%**.</p>
+<p>Additionally, you will have the taxonomic assignment and quality assessment of each bin in the file <strong>MAGs_checkm.tab</strong> with the corresponding level of <strong>completeness</strong>, <strong>contamination</strong>, and <strong>strain heterogeneity</strong> (Fig. 2). A quick way to infer the overall quality of the bin is to calculate the level of **(completeness - 5*contamination)<strong>. You should be aiming for an overall score of at least </strong>70-80%**. We usually use 50% as the lowest acceptable cut-off (QS50)</p>
 <p>You can inspect the CheckM output with:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> MAGs_checkm.tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -597,7 +615,201 @@ Step
 <figcaption>Example output of CheckM</figcaption>
 </figure>
 </div>
-<p>Before we can visualize and plot the tree, we will need to convert the reference ID names used by CheckM to taxon names. We have already prepared a mapping file for renaming the tree (<strong>rename_list.tab</strong>). We can then do this easily with the <a href="http://cegg.unige.ch/newick_utils"><strong>newick utilities</strong></a>.</p>
+</section>
+<section id="comparing-checkm-and-checkm2" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-checkm-and-checkm2">Comparing CheckM and CheckM2</h3>
+<p>Today researchers also use CheckM2, an improved method of predicting genome quality that uses machine learning. The execution of CheckM2 takes more time than CheckM. We have pre-generated the tab-delimited quality table. It is available on our FTP.</p>
+<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the CheckM2 result table that we have pre-generated:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a folder for the CheckM2 result</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> checkm2</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> checkm2</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># download CheckM2 TSV result</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2024/mags/checkm2_quality_report.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>If you would like to try CheckM2, launch it in a new terminal window:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-t</span> quay.it/biocontainers/checkm2:1.0.2--pyh7cba7a3_0 checkm2 predict <span class="at">-i</span> contigs.fasta.metabat-bins2000 checkm_output <span class="at">-o</span> checkm2_result <span class="at">--database_path</span> uniref100.KO.1.dmnd <span class="at">-x</span> fa <span class="at">--force</span> <span class="at">--lowmem</span> <span class="at">-t</span> 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can compare CheckM and CheckM2 results using a scatter plot. We will plot completeness on the x-axis and contamination on the y-axis. We have created a simple python script to plot CheckM and CheckM2 results separately. Input table should be in the CSV format and it should contain 3 columns: bin name, completeness, and contamination. Required file header: “bin,completeness,contamination”</p>
+<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modify the CheckM results table and generate a plot:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># modify MAGs_checkm.tab</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># add header</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"bin,completeness,contamination"</span> <span class="op">&gt;</span> checkm1_quality_report.csv</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># take the file without the header; leave only columns 1, 12 and 13; replace tabs with commas</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n+2</span> MAGs_checkm.tab <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1,12,13</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">'\t'</span> <span class="st">','</span> <span class="op">&gt;&gt;</span> checkm1_quality_report.csv</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot (apologies for the typo in the script name...)</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">complenetess_vs_contamination.py</span> <span class="at">-i</span> checkm1_quality_report.csv <span class="at">-o</span> checkm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now do the same for CheckM2. Modify the table and make a plot:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create CSV</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># add a header</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"bin,completeness,contamination"</span> <span class="op">&gt;</span> checkm2_quality_report.csv</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># take the file without the header, leave only the first 3 columns, replace tabs with commas</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n+2</span> checkm2_quality_report.tsv <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-3</span>  <span class="kw">|</span> <span class="fu">tr</span> <span class="st">'\t'</span> <span class="st">','</span> <span class="op">&gt;&gt;</span> checkm2_quality_report.csv</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">complenetess_vs_contamination.py</span> <span class="at">-i</span> checkm2_quality_report.csv <span class="at">-o</span> checkm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>You should now have files checkm1.png and checkm2.png to compare the quality predictions between the two tools. To open the png files, use the file browser (grey folder icon on the left-hand menu) and navigate to /Home/Binning/assemblies</p>
+<div class="callout callout-style-default callout-question callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Did CheckM and CheckM2 produce similar results? What can you say about the quality of the bins?</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="visualizing-the-phylogenetic-tree" class="level1">
+<h1>Visualizing the phylogenetic tree</h1>
+<section id="gtdb-tk-taxonomy" class="level3">
+<h3 class="anchored" data-anchor-id="gtdb-tk-taxonomy">GTDB-Tk taxonomy</h3>
+<p>A commonly used tool to determine genome taxonomy is <a href="https://github.com/Ecogenomics/GTDBTk">GTDB-Tk</a> Due to the long time it takes to run it, we have already launched GTDB-Tk on all bins and saved the results to the FTP. Let’s take a look at the assigned taxonomy.</p>
+<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># download the table</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2024/mags/taxonomy/bins_gtdbtk.bac120.summary.tsv</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># the first two columns of the table contain the bin name and the assigned taxonomy - take a look:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1,2</span> bins_gtdbtk.bac120.summary.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-question callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How many bins were classified to the species level?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-question callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make a guess why some bins were not assigned to any pylum?</p>
+</div>
+</div>
+<p>Now you can visualise your classified bins on a small bacterial phylogenetic tree with iTOL. A quick and user-friendly way to do this is to use the web-based <strong>interactive Tree of Life</strong> <a href="http://itol.embl.de/index.shtml"><strong>iTOL</strong></a></p>
+<div class="callout callout-style-default callout-step callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To use <strong>iTOL</strong> you will need a user account. For the purpose of this tutorial we have already created one for you with an example tree.</p>
+</div>
+</div>
+<section id="using-ebi-account" class="level4">
+<h4 class="anchored" data-anchor-id="using-ebi-account">Using EBI account</h4>
+<p>Go to the <a href="http://itol.embl.de/index.shtml"><strong>iTOL</strong></a> website (open the link in a new window).</p>
+<p>The login is as follows:</p>
+<p><strong>User:</strong> <em>EBI_training</em></p>
+<p><strong>Password:</strong> <em>EBI_training</em></p>
+<p>After you login, just click on <strong>My Trees</strong> in the toolbar at the top and select <strong>mags_gtdb_fasttree_150.nwk</strong> from the <strong>Imported trees</strong> workspace (it might be located on page 3).</p>
+</section>
+<section id="using-personal-account" class="level4">
+<h4 class="anchored" data-anchor-id="using-personal-account">Using personal account</h4>
+<p>Alternatively, if you want to create your own account or you already have an account you can plot the tree yourself follow these steps:</p>
+<ol type="1">
+<li>Pre-download tree files from FTP</li>
+</ol>
+<ul>
+<li>tree: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2024/mags/taxonomy/small_bac_tree.nwk</li>
+<li>legend: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2024/mags/taxonomy/small_bac_tree.legend.txt</li>
+<li>layers: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2024/mags/taxonomy/small_bac_tree.layer.txt</li>
+</ul>
+<ol start="2" type="1">
+<li>After you have created and logged in to your account go to <strong>My Trees</strong></li>
+<li>From there select <strong>Upload tree files</strong> and upload tree file <strong>small_bac_tree.nwk</strong></li>
+<li>Once uploaded, click the tree name to visualize the plot</li>
+<li>To colour the clades and the outside circle according to the phylum of each strain, drag and drop the files <strong>small_bac_tree.legend.txt</strong> and <strong>small_bac_tree.layer.txt</strong></li>
+</ol>
+<p>To find the bins you generated, click on the search icon in the left-hand side menu (magnifying glass with the letters “Aa” in it). In the search field type <strong>bin.</strong>. Click on each bin name to see it in the tree.</p>
+<div class="callout callout-style-default callout-question callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Have you found your bins on that tree?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="how-to-deal-with-unclassified-bins" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-deal-with-unclassified-bins">How to deal with unclassified bins?</h3>
+<p>Now we can try another method to classify bins using CheckM tree.</p>
+<p>Before we can visualize and plot the CheckM tree, we will need to convert the reference ID names used by CheckM to taxon names. We have already prepared a mapping file for renaming the tree (<strong>rename_list.tab</strong>). We can then do this easily with the <a href="http://cegg.unige.ch/newick_utils"><strong>newick utilities</strong></a>.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -609,15 +821,9 @@ Step
 </div>
 <div class="callout-body-container callout-body">
 <p>To do this, run the following command:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nw_rename</span> assemblies/checkm_output/storage/tree/concatenated.tre assemblies/rename_list.tab <span class="op">&gt;</span> renamed.tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-</section>
-<section id="visualizing-the-phylogenetic-tree" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-the-phylogenetic-tree">Visualizing the phylogenetic tree</h2>
-<p>We will now plot and visualize the tree we have produced. A quick and user-friendly way to do this is to use the web-based <strong>interactive Tree of Life</strong> <a href="http://itol.embl.de/index.shtml"><strong>iTOL</strong></a></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nw_rename</span> assemblies/checkm_output/storage/tree/concatenated.tre assemblies/rename_list.tab <span class="op">&gt;</span> renamed.tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we will get back to iTOL visualisation.</p>
 <p><strong>iTOL</strong> only takes in newick formatted trees, so we need to quickly reformat the tree with <a href="http://tree.bio.ed.ac.uk/software/figtree/"><strong>FigTree</strong></a>.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -629,7 +835,7 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In order to open <strong>FigTree</strong>, open a new terminal window (without docker) and type <code>figtree</code></p>
+<p>In order to open <strong>FigTree</strong>, open a new terminal window (without docker) and type <code>java -jar /home/training/JAR/figtree.jar</code></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-step callout-titled">
@@ -645,31 +851,13 @@ Step
 <p>Open the <strong>renamed.tree</strong> file with <strong>FigTree</strong> (<strong>File -&gt; Open</strong>) (file is in <code>/home/training/Binning</code>) and then select from the toolbar <strong>File -&gt; Export Trees</strong>. In the <strong>Tree file format</strong> select <strong>Newick</strong> and export the file as <strong>renamed.nwk</strong> (or choose a name you will recognise if you plan to use the shared account described below).</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-step callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Step
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To use <strong>iTOL</strong> you will need a user account. For the purpose of this tutorial we have already created one for you with an example tree.</p>
-</div>
-</div>
-<p>Go to the <a href="http://itol.embl.de/index.shtml"><strong>iTOL</strong></a> website (open the link in a new window).</p>
-<p>The login is as follows:</p>
-<p><strong>User:</strong> <em>EBI_training</em></p>
-<p><strong>Password:</strong> <em>EBI_training</em></p>
-<p>After you login, just click on <strong>My Trees</strong> in the toolbar at the top and select</p>
-<p><strong>IBD_checkm.nwk</strong> from the <strong>Imported trees</strong> workspace.</p>
-<p>Alternatively, if you want to create your own account and plot the tree yourself follow these steps:</p>
+<section id="itol-visualisation" class="level4">
+<h4 class="anchored" data-anchor-id="itol-visualisation">iTOL visualisation</h4>
 <ol type="1">
-<li>After you have created and logged in to your account go to <strong>My Trees</strong></li>
-<li>From there select <strong>Upload tree files</strong> and upload the tree you exported from <strong>FigTree</strong></li>
-<li>Once uploaded, click the tree name to visualize the plot</li>
-<li>To colour the clades and the outside circle according to the phylum of each strain, drag and drop the files <strong>iTOL_clades.txt</strong> and <strong>iTOL_ocircles.txt</strong> present in /home/training/Data/Binning/iTOL_Files/ into the browser window</li>
+<li>Login into your working account (EBI/personal)</li>
+<li>Go again to <strong>My Trees</strong></li>
+<li>Open/upload <strong>IBD_checkm.nwk</strong></li>
+<li>[personal usage only ] add clades drag and drop the files <strong>iTOL_clades.txt</strong> and <strong>iTOL_ocircles.txt</strong> present in /home/training/Data/Binning/iTOL_Files/ into the browser window</li>
 </ol>
 <p>Once that is done, all the reference genomes used by <strong>CheckM</strong> will be coloured according to their phylum name, while all the other ones left blank correspond to the <strong>target genomes</strong> we placed in the tree. Highlighting each tip of the phylogeny will let you see the whole taxon/sample name. Feel free to play around with the plot.</p>
 <p>To find the bins you generated, click on the search icon in the left-hand side menu (magnifying glass with the letters “Aa” in it). In the search field type <strong>bin.</strong>. Click on each bin name to see it in the tree.</p>
@@ -688,6 +876,9 @@ Question
 </div>
 
 
+</section>
+</div>
+</div>
 </section>
 </section>
 
