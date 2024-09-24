@@ -76,7 +76,7 @@
     "href": "sessions/genome_uploader.html",
     "title": "The genome_uploader: tutorial",
     "section": "",
-    "text": "This session will simulate genomes registration and submission with the genome_uploader, a tool developed within MGnify to facilitate the upload of bins and MAGs to the ENA (European Nucleotide Archive).\nLet’s first move to the genomeuploader root directory. Open a terminal and type:",
+    "text": "This session will simulate genomes registration and submission with the genome_uploader, a tool developed within MGnify to facilitate the upload of bins and MAGs to the ENA (European Nucleotide Archive).\nFirst, let’s activate the environment as follows to access the tools we will use in this session. Open a terminal and type:\nAnd then move to the genomeuploader root directory",
     "crumbs": [
       "Home",
       "Sessions",

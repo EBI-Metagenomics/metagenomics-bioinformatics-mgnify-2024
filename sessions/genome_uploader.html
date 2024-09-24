@@ -292,8 +292,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This session will simulate genomes registration and submission with the <code>genome_uploader</code>, a tool developed within MGnify to facilitate the upload of bins and MAGs to the ENA (European Nucleotide Archive).</p>
-<p>Let’s first move to the <code>genomeuploader</code> root directory. Open a terminal and type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/genomeuploader/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>First, let’s activate the environment as follows to access the tools we will use in this session. Open a terminal and type:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> /home/training/venv/training_env1/bin/activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And then move to the <code>genomeuploader</code> root directory</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/genomeuploader/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="the-genome_uploader-and-its-metadata-handling" class="level2">
 <h2 class="anchored" data-anchor-id="the-genome_uploader-and-its-metadata-handling">The genome_uploader and its metadata handling</h2>
 <p>As Maira thoroughly explained in the theory session, bin and MAG submission undergoes 3 different steps:</p>
@@ -496,10 +498,10 @@ Warning
 </div>
 </div>
 <p>After generating the table, it will be time to launch the <code>genome_uploader</code>. You can do so by opening a terminal and typing:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> genome_upload.py <span class="at">-u</span> UPLOAD_STUDY <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>--genome_info METADATA_FILE <span class="er">(</span><span class="ex">--mags</span> <span class="kw">|</span> <span class="ex">--bins</span><span class="kw">)</span> <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">--webin</span> WEBIN_ID <span class="at">--password</span> PASSWORD <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>--centre_name CENTRE_NAME <span class="pp">[--</span><span class="ss">out</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">force</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> genome_upload.py <span class="at">-u</span> UPLOAD_STUDY <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--genome_info METADATA_FILE <span class="er">(</span><span class="ex">--mags</span> <span class="kw">|</span> <span class="ex">--bins</span><span class="kw">)</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">--webin</span> WEBIN_ID <span class="at">--password</span> PASSWORD <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--centre_name CENTRE_NAME <span class="pp">[--</span><span class="ss">out</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">force</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Where:</p>
 <ul>
 <li><code>-u UPLOAD_STUDY</code>: study accession for genomes upload to ENA (in format ERPxxxxxx or PRJEBxxxxxx)</li>
@@ -516,10 +518,10 @@ Warning
 <section id="submitting-your-genomes" class="level2">
 <h2 class="anchored" data-anchor-id="submitting-your-genomes">Submitting your genomes</h2>
 <p>After checking that all needed manifests exist, it is necessary to use ENA’s webin-cli resource to upload genomes.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> ~/JAR/webin-cli-8.0.0.jar <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>-context=genome <span class="at">-manifest</span><span class="op">=</span>MANIFEST_FILE <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>-userName=<span class="st">"Webin-XXX"</span> <span class="at">-password</span><span class="op">=</span><span class="st">"YYY"</span> <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>-test <span class="at">-submit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> ~/JAR/webin-cli-8.0.0.jar <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>-context=genome <span class="at">-manifest</span><span class="op">=</span>MANIFEST_FILE <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>-userName=<span class="st">"Webin-XXX"</span> <span class="at">-password</span><span class="op">=</span><span class="st">"YYY"</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>-test <span class="at">-submit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="registering-a-study" class="level2">
 <h2 class="anchored" data-anchor-id="registering-a-study">Registering a study</h2>
