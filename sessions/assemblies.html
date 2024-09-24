@@ -329,6 +329,8 @@ Note
 <h1>Before we start…</h1>
 <p>Let’s first move to the root working directory to run all analyses:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/Assembly/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Activate the environment as follows to access the tools we will use in this session:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> /home/training/venv/training_env1/bin/activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The raw reads used for assembly generation can be found in the <code>data_dir/[long/short]_reads</code> folders.</p>
 </section>
 <section id="short-read-assemblies-metaspades" class="level1">
@@ -347,7 +349,7 @@ Tip
 <div class="callout-body-container callout-body">
 <p>The default metaSPAdes pipeline executes an error correction step on the input fastqs. Since reads have already been polished in the previous step, you can run metaSPAdes without the error correction step.</p>
 <p>You can see available metaspades parameters by typing the following:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">metaspades.py</span> <span class="at">-h</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">metaspades.py</span> <span class="at">-h</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -385,7 +387,7 @@ Step
 </div>
 <div class="callout-body-container callout-body">
 <p>Take the first 100 lines of the sequence and perform a <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">blast</a> search (choose Nucleotide:Nucleotide from the set of options). Leave all other options as default on the search page. To select the first 100 lines of the assembly perform the following:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 101 assembly_spades/contigs.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 101 assembly_spades/contigs.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The resulting output is going to have the following format (but look a bit better than this): <img src="assemblies/blast_corrupted.jpg" class="img-fluid" alt="Blast-n"></p>
 </div>
 </div>
@@ -432,7 +434,7 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">assembly-stats</span> assembly_spades/scaffolds.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">assembly-stats</span> assembly_spades/scaffolds.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>You will see a short output with a few statistics for your assembly. In lines with format <code>N50 = YYY, n = Z</code>, <code>n</code> represents the amount of sequences needed to cover 50% of the total assembly. A “gap” is any consecutive run of Ns (undetermined nucleotide bases) of any length. <code>N_count</code> is the total Ns (undetermined nucleotide bases) across the entire assembly.</p>
@@ -466,7 +468,7 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Flye’s parameters are described in the help command:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flye</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flye</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Flye supports metagenomic assemblies with the <code>--meta</code> flag.</p>
 </div>
 </div>
@@ -519,7 +521,7 @@ Step
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Bandage</span> <span class="kw">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Bandage</span> <span class="kw">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the Bandage GUI perform the following:</p>
 <ul>
 <li>Select File -&gt; Load graph</li>
@@ -591,7 +593,7 @@ Extra
 <section id="co-assemblies-megahit" class="level1">
 <h1>Co-assemblies: MEGAHIT</h1>
 <p>In the following steps of this exercise, we will observe co-assembly of multiple datasets. Remember that co-assembly produces meaningful results only when applied to “similar” samples. This is the case for the raw reads we co-assembled: they originally come from a single sample that has been split for this exercise. In particular, we co-assembled more data coming from the same sample we assembled with metaSPAdes.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -650,7 +652,7 @@ Extra
 </div>
 <div class="callout-body-container callout-body">
 <p>You might notice that MEGAHIT does not generate assembly graphs by default. To do so, execute:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit_toolkit</span> contig2fastg 77 co_assembly_megahit/final.contigs.fa <span class="op">&gt;</span> co_assembly_megahit/final.contigs.fastg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">megahit_toolkit</span> contig2fastg 77 co_assembly_megahit/final.contigs.fa <span class="op">&gt;</span> co_assembly_megahit/final.contigs.fastg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The samples used for the metaSPAdes assembly and the MEGAHIT co-assembly come from the same source. Do you see any relevant difference between the two assembly graphs?</p>
 </div>
 </div>
