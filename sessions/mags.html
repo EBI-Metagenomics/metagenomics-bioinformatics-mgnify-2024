@@ -321,10 +321,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<p>For this tutorial, you will need to first activate the virtual environment and start the docker container by running the following commands in the terminal:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">virtualenv</span> /home/training/venv/training_env6/bin/activate</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-it</span> <span class="at">-v</span> /home/training/Binning:/opt/data quay.io/microbiome-informatics/mags-practical-2024:v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For this tutorial, you will need to start the docker container by running the following command in the terminal:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run <span class="at">--rm</span> <span class="at">-it</span> <span class="at">-v</span> /home/training/Binning:/opt/data quay.io/microbiome-informatics/mags-practical-2024:v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><em>password: training</em></p>
 </section>
 <section id="generating-metagenome-assembled-genomes" class="level2">
@@ -339,7 +337,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Learning Objectives - in the following exercises, you will learn how to bin an assembly, assess the quality of this assembly with checkM, and then visualize a placement of these genomes within a reference tree.</p>
+<p>Learning Objectives - in the following exercises, you will learn how to bin an assembly, assess the quality of this assembly with СheckM and CheckM2, and then visualize a placement of these genomes within a reference tree.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -640,7 +638,7 @@ Step
 </div>
 <p>If you would like to try CheckM2, launch it in a new terminal window:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/assemblies</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-t</span> quay.it/biocontainers/checkm2:1.0.2--pyh7cba7a3_0 checkm2 predict <span class="at">-i</span> contigs.fasta.metabat-bins2000 checkm_output <span class="at">-o</span> checkm2_result <span class="at">--database_path</span> uniref100.KO.1.dmnd <span class="at">-x</span> fa <span class="at">--force</span> <span class="at">--lowmem</span> <span class="at">-t</span> 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-t</span> <span class="at">-v</span> /home/training/Binning:/opt/data quay.io/biocontainers/checkm2:1.0.2--pyh7cba7a3_0 checkm2 predict <span class="at">-i</span> /opt/data/assemblies/contigs.fasta.metabat-bins2000 <span class="at">-o</span> checkm2_result <span class="at">--database_path</span> /opt/data/uniref100.KO.1.dmnd <span class="at">-x</span> fa <span class="at">--force</span> <span class="at">--lowmem</span> <span class="at">-t</span> 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can compare CheckM and CheckM2 results using a scatter plot. We will plot completeness on the x-axis and contamination on the y-axis. We have created a simple python script to plot CheckM and CheckM2 results separately. Input table should be in the CSV format and it should contain 3 columns: bin name, completeness, and contamination. Required file header: “bin,completeness,contamination”</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -684,7 +682,7 @@ Step
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">complenetess_vs_contamination.py</span> <span class="at">-i</span> checkm2_quality_report.csv <span class="at">-o</span> checkm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>You should now have files checkm1.png and checkm2.png to compare the quality predictions between the two tools. To open the png files, use the file browser (grey folder icon on the left-hand menu) and navigate to /Home/Binning/assemblies</p>
+<p>You should now have files checkm1.png and checkm2.png to compare the quality predictions between the two tools. To open the png files, use the file browser (grey folder icon in the left-hand side menu) and navigate to /Home/Binning/assemblies</p>
 <div class="callout callout-style-default callout-question callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -705,7 +703,7 @@ Question
 <h1>Visualizing the phylogenetic tree</h1>
 <section id="gtdb-tk-taxonomy" class="level3">
 <h3 class="anchored" data-anchor-id="gtdb-tk-taxonomy">GTDB-Tk taxonomy</h3>
-<p>A commonly used tool to determine genome taxonomy is <a href="https://github.com/Ecogenomics/GTDBTk">GTDB-Tk</a> Due to the long time it takes to run it, we have already launched GTDB-Tk on all bins and saved the results to the FTP. Let’s take a look at the assigned taxonomy.</p>
+<p>A commonly used tool to determine genome taxonomy is <a href="https://github.com/Ecogenomics/GTDBTk">GTDB-Tk</a>. Due to the long time it takes to run it, we have already launched GTDB-Tk on all bins and saved the results to the FTP. Let’s take a look at the assigned taxonomy.</p>
 <div class="callout callout-style-default callout-step callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -763,8 +761,6 @@ Step
 </div>
 <div class="callout-body-container callout-body">
 <p>To use <strong>iTOL</strong> you will need a user account. For the purpose of this tutorial we have already created one for you with an example tree.</p>
-</div>
-</div>
 <section id="using-ebi-account" class="level4">
 <h4 class="anchored" data-anchor-id="using-ebi-account">Using EBI account</h4>
 <p>Go to the <a href="http://itol.embl.de/index.shtml"><strong>iTOL</strong></a> website (open the link in a new window).</p>
@@ -791,6 +787,9 @@ Step
 <li>To colour the clades and the outside circle according to the phylum of each strain, drag and drop the files <strong>small_bac_tree.legend.txt</strong> and <strong>small_bac_tree.layer.txt</strong></li>
 </ol>
 <p>To find the bins you generated, click on the search icon in the left-hand side menu (magnifying glass with the letters “Aa” in it). In the search field type <strong>bin.</strong>. Click on each bin name to see it in the tree.</p>
+</section>
+</div>
+</div>
 <div class="callout callout-style-default callout-question callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -804,7 +803,6 @@ Question
 <p>Have you found your bins on that tree?</p>
 </div>
 </div>
-</section>
 </section>
 <section id="how-to-deal-with-unclassified-bins" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-deal-with-unclassified-bins">How to deal with unclassified bins?</h3>
@@ -823,6 +821,8 @@ Step
 <p>To do this, run the following command:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nw_rename</span> assemblies/checkm_output/storage/tree/concatenated.tre assemblies/rename_list.tab <span class="op">&gt;</span> renamed.tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 <p>Now we will get back to iTOL visualisation.</p>
 <p><strong>iTOL</strong> only takes in newick formatted trees, so we need to quickly reformat the tree with <a href="http://tree.bio.ed.ac.uk/software/figtree/"><strong>FigTree</strong></a>.</p>
 <div class="callout callout-style-default callout-step callout-titled">
@@ -877,8 +877,6 @@ Question
 
 
 </section>
-</div>
-</div>
 </section>
 </section>
 
