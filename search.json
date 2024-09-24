@@ -112,7 +112,7 @@
     "href": "sessions/genome_uploader.html#provided-materials",
     "title": "The genome_uploader: tutorial",
     "section": "Provided materials",
-    "text": "Provided materials\nYou can follow this link to find a Google Spreasheet called genome_uploader_template.\nThis spreadsheet contains a tab for every webin account assigned to this course’s users. Identify the tab assigned to your webin profile. You can use the table template in that tab to prepare a tsv as input file for the genome_uploader. Once you have filled in the table with all required values, export it as tsv (File –&gt; Download –&gt; Tab-separated values (.tsv)).\n\n\n\n\n\n\nWarning\n\n\n\nTwo tables need to be generated if you are submitting bins and MAGs - one for bins and one for MAGs.",
+    "text": "Provided materials\nYou can follow this link to find a Google Spreasheet called genome_uploader_template.\nThis spreadsheet contains a tab for every webin account assigned to this course’s users. You should use the same accounts that have been assigned yesterday - you will find the list here or in Maira’s documentation. Identify the tab assigned to your webin profile. You can use the table template in that tab to prepare a tsv as input file for the genome_uploader. Once you have filled in the table with all required values, export it as tsv (File –&gt; Download –&gt; Tab-separated values (.tsv)).\n\n\n\n\n\n\nWarning\n\n\n\nTwo tables need to be generated if you are submitting bins and MAGs - one for bins and one for MAGs.",
     "crumbs": [
       "Home",
       "Sessions",
@@ -124,7 +124,7 @@
     "href": "sessions/genome_uploader.html#registering-your-genomes",
     "title": "The genome_uploader: tutorial",
     "section": "Registering your genomes",
-    "text": "Registering your genomes\n\n\n\n\n\n\nWarning\n\n\n\nAs you did yesterday, you will need to generate a study from your webin profile, and add it to the following command under UPLOAD_STUDY.\n\n\nAfter generating the table, it will be time to launch the genome_uploader. You can do so by opening a terminal and typing:\npython genome_upload.py -u UPLOAD_STUDY \\\n--genome_info METADATA_FILE (--mags | --bins) \\\n--webin WEBIN_ID --password PASSWORD \\\n--centre_name CENTRE_NAME [--out] [--force]\nWhere:\n\n-u UPLOAD_STUDY: study accession for genomes upload to ENA (in format ERPxxxxxx or PRJEBxxxxxx)\n---genome_info METADATA_FILE : genomes metadata file in tsv format\n-m, --mags, --b, --bins: select for bin or MAG upload\n--out: output folder (default: working directory)\n--force: sample xmls won’t be regenerated automatically if a previous xml already exists. If any metadata or value in the tsv table changes, --force will allow xml regeneration.\n--webin WEBIN_ID: webin id (format: Webin_XXXXX)\n--password PASSWORD: webin password\n--centre_name CENTRE_NAME: name of the centre generating and uploading genomes\n\nThis step will also generate manifest files.",
+    "text": "Registering your genomes\n\n\n\n\n\n\nWarning\n\n\n\nAs you did yesterday, you will need to generate a study from your webin profile, and add it to the following command under UPLOAD_STUDY. You can either look it up on Maira’s documentation from yesterday, or screenshotted at the end of this page.\n\n\nAfter generating the table, it will be time to launch the genome_uploader. You can do so by opening a terminal and typing:\npython genome_upload.py -u UPLOAD_STUDY \\\n--genome_info METADATA_FILE (--mags | --bins) \\\n--webin WEBIN_ID --password PASSWORD \\\n--centre_name CENTRE_NAME [--out] [--force]\nWhere:\n\n-u UPLOAD_STUDY: study accession for genomes upload to ENA (in format ERPxxxxxx or PRJEBxxxxxx)\n---genome_info METADATA_FILE : genomes metadata file in tsv format\n-m, --mags, --b, --bins: select EITHER OF THESE for either bin or MAG upload\n--out: output folder (default: working directory)\n--force: sample xmls won’t be regenerated automatically if a previous xml already exists. If any metadata or value in the tsv table changes, --force will allow xml regeneration.\n--webin WEBIN_ID: webin id (format: Webin_XXXXX)\n--password PASSWORD: webin password\n--centre_name CENTRE_NAME: name of the centre generating and uploading genomes\n\nThis step will also generate manifest files.",
     "crumbs": [
       "Home",
       "Sessions",
@@ -137,6 +137,18 @@
     "title": "The genome_uploader: tutorial",
     "section": "Submitting your genomes",
     "text": "Submitting your genomes\nAfter checking that all needed manifests exist, it is necessary to use ENA’s webin-cli resource to upload genomes.\njava -jar ~/JAR/webin-cli-8.0.0.jar \\\n-context=genome -manifest=MANIFEST_FILE \\\n-userName=\"Webin-XXX\" -password=\"YYY\" \\\n-test -submit",
+    "crumbs": [
+      "Home",
+      "Sessions",
+      "The genome_uploader: tutorial"
+    ]
+  },
+  {
+    "objectID": "sessions/genome_uploader.html#registering-a-study",
+    "href": "sessions/genome_uploader.html#registering-a-study",
+    "title": "The genome_uploader: tutorial",
+    "section": "Registering a study",
+    "text": "Registering a study",
     "crumbs": [
       "Home",
       "Sessions",

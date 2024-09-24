@@ -244,6 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#provided-materials" id="toc-provided-materials" class="nav-link" data-scroll-target="#provided-materials">Provided materials</a></li>
   <li><a href="#registering-your-genomes" id="toc-registering-your-genomes" class="nav-link" data-scroll-target="#registering-your-genomes">Registering your genomes</a></li>
   <li><a href="#submitting-your-genomes" id="toc-submitting-your-genomes" class="nav-link" data-scroll-target="#submitting-your-genomes">Submitting your genomes</a></li>
+  <li><a href="#registering-a-study" id="toc-registering-a-study" class="nav-link" data-scroll-target="#registering-a-study">Registering a study</a></li>
   </ul>
 </nav>
     </div>
@@ -464,7 +465,7 @@ Tip
 <section id="provided-materials" class="level2">
 <h2 class="anchored" data-anchor-id="provided-materials">Provided materials</h2>
 <p>You can follow <a href="https://docs.google.com/spreadsheets/d/1eT05boK8MkGq6MNOBMa1w0qHD-n5e5aU03_nu4CBBiA/edit?usp=sharing">this link</a> to find a Google Spreasheet called <code>genome_uploader_template</code>.</p>
-<p>This spreadsheet contains a tab for every webin account assigned to this course’s users. Identify the tab assigned to your webin profile. You can use the table template in that tab to prepare a tsv as input file for the genome_uploader. Once you have filled in the table with all required values, export it as tsv (<code>File</code> –&gt; <code>Download</code> –&gt; <code>Tab-separated values (.tsv)</code>).</p>
+<p>This spreadsheet contains a tab for every webin account assigned to this course’s users. You should use the same accounts that have been assigned yesterday - you will find the list <a href="https://docs.google.com/document/d/1VnV5sf4oETrHjXwRpT7RBB00wABGLES1/edit#heading=h.gjdgxs">here</a> or in Maira’s documentation. Identify the tab assigned to your webin profile. You can use the table template in that tab to prepare a tsv as input file for the genome_uploader. Once you have filled in the table with all required values, export it as tsv (<code>File</code> –&gt; <code>Download</code> –&gt; <code>Tab-separated values (.tsv)</code>).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -491,7 +492,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>As you did yesterday, you will need to generate a study from your webin profile, and add it to the following command under <code>UPLOAD_STUDY</code>.</p>
+<p>As you did yesterday, you will need to generate a study from your webin profile, and add it to the following command under <code>UPLOAD_STUDY</code>. You can either look it up on Maira’s documentation from yesterday, or screenshotted at the end of this page.</p>
 </div>
 </div>
 <p>After generating the table, it will be time to launch the <code>genome_uploader</code>. You can do so by opening a terminal and typing:</p>
@@ -503,7 +504,7 @@ Warning
 <ul>
 <li><code>-u UPLOAD_STUDY</code>: study accession for genomes upload to ENA (in format ERPxxxxxx or PRJEBxxxxxx)</li>
 <li><code>---genome_info METADATA_FILE</code> : genomes metadata file in tsv format</li>
-<li><code>-m, --mags, --b, --bins</code>: select for bin or MAG upload</li>
+<li><code>-m, --mags, --b, --bins</code>: select EITHER OF THESE for either bin or MAG upload</li>
 <li><code>--out</code>: output folder (default: working directory)</li>
 <li><code>--force</code>: sample xmls won’t be regenerated automatically if a previous xml already exists. If any metadata or value in the tsv table changes, <code>--force</code> will allow xml regeneration.</li>
 <li><code>--webin WEBIN_ID</code>: webin id (format: Webin_XXXXX)</li>
@@ -519,6 +520,10 @@ Warning
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>-context=genome <span class="at">-manifest</span><span class="op">=</span>MANIFEST_FILE <span class="dt">\</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>-userName=<span class="st">"Webin-XXX"</span> <span class="at">-password</span><span class="op">=</span><span class="st">"YYY"</span> <span class="dt">\</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>-test <span class="at">-submit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="registering-a-study" class="level2">
+<h2 class="anchored" data-anchor-id="registering-a-study">Registering a study</h2>
+<p><img src="genome_uploader/register_a_study.png" class="img-fluid"></p>
 
 
 </section>
