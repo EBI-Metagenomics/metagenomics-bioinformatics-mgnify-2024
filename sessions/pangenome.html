@@ -416,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Try this with a maximum core (pi) distance of 0.05 and a maximum accessory (a) distance of 1. Try also with different values and compare the results. The command will be:</p>
+<p>Try this with a maximum core (pi) distance of 0.02 and a maximum accessory (a) distance of 1. Try also with different values and compare the results. The command will be:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">poppunk</span> <span class="at">--qc-db</span> <span class="at">--ref-db</span> b_uniformis_db <span class="at">--max-pi-dist</span> <span class="op">&lt;</span>replace<span class="op">&gt;</span> --max-a-dist <span class="op">&lt;</span>replace <span class="op">&gt;</span> --output b_uniformis_db_qc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
@@ -433,10 +433,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To run qc:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">poppunk</span> <span class="at">--qc-db</span> <span class="at">--ref-db</span> b_uniformis_db <span class="at">--max-pi-dist</span> 0.05 <span class="at">--max-a-dist</span> 1 <span class="at">--output</span> b_uniformis_db_qc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">poppunk</span> <span class="at">--qc-db</span> <span class="at">--ref-db</span> b_uniformis_db <span class="at">--max-pi-dist</span> 0.02 <span class="at">--max-a-dist</span> 1 <span class="at">--output</span> b_uniformis_db_qc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This removes outlying distances and poor quality samples.</p>
 <p>However if we run with a smaller core (pi) distance, this will remove half of the samples.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">poppunk</span> <span class="at">--qc-db</span> <span class="at">--ref-db</span> b_uniformis_db <span class="at">--max-pi-dist</span> 0.01 <span class="at">--max-a-dist</span> 1 <span class="at">--output</span> b_uniformis_db_qc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">poppunk</span> <span class="at">--qc-db</span> <span class="at">--ref-db</span> b_uniformis_db <span class="at">--max-pi-dist</span> 0.01 <span class="at">--max-a-dist</span> 1 <span class="at">--output</span> b_uniformis_db_qc_strict</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This isn’t a good idea here as this core distance is too strict for a species as diverse as <em>B. uniformis</em>.</p>
 </div>
 </div>
@@ -524,7 +524,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>But before we move on, let’s get a better look at the results. We can make a core genome tree and accessory genome embedding and plot the clusters interactively in the browser. First, run the <a href="https://poppunk-docs.bacpop.org/visualisation.html#"><code>poppunk_visualise</code> command</a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">poppunk_visualise</span> <span class="at">--ref-db</span> b_uniformis_db <span class="at">--model-dir</span> b_uniformis_threshold <span class="at">--microreact</span> <span class="at">--maxIter</span> 100000 <span class="at">--output</span> b_uniformis_db_viz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Here, <code>maxIter</code> is being used to reduce the number embedding iterations as the dataset is small, just so the command runs quickly.</p>
-<p>Now, open up <a href="https://microreact.org/" class="uri">https://microreact.org/</a> in your browser and choose ‘Upload’. Drag and drop the <code>.microreact</code> file in the <code>b_uniformis_db_viz</code> directory to see the clusters and the tree.</p>
+<p>Now, open up <a href="https://microreact.org/" class="uri">https://microreact.org/</a> in your browser and choose ‘Upload’. Drag and drop the <code>.microreact</code> file in the <code>b_uniformis_db_viz</code> directory to see the clusters and the tree. To change the tree layout, select the circular tree option in the top right corner.</p>
 <p>The left-hand panel shows clustering by accessory genome distance, whilst the right-hand panel shows the tree generated from core genome distances. The points are coloured by which sequence cluster they were assigned to by PopPUNK.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -587,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Again, how do the number of identified sequence clusters compare when using refinement?</p>
 </div>
 </div>
-<p>You can also play around with visualisation tools such as <a href="https://cytoscape.org/what_is_cytoscape.html">Cytoscape</a>. Use the <code>poppunk_visualise</code> tool to generate a cytoscape output following the <a href="https://poppunk-docs.bacpop.org/visualisation.html#cytoscape">documentation</a>. This will allow you to visualise the strain cluster network, the components of which are the strains detected by PopPUNK. Note: this will generate a file for each component, as well as the whole network, enabling visualisation of the whole network or just parts of it.</p>
+<p>You can also play around with visualisation tools such as <a href="https://cytoscape.org/what_is_cytoscape.html">Cytoscape</a>. Use the <code>poppunk_visualise</code> tool to generate a cytoscape output following the <a href="https://poppunk-docs.bacpop.org/visualisation.html#cytoscape">documentation</a>. This will allow you to visualise the strain cluster network, the components of which are the strains detected by PopPUNK. Note: this will generate a file for each component, as well as the whole network, enabling visualisation of the whole network or just parts of it. To open the file, open <code>Cytoscape</code> -&gt; <code>File</code> -&gt; <code>Import</code> -&gt; <code>Network from File</code> and them open a <code>.gml</code> file.</p>
 </section>
 </section>
 <section id="assigning-using-poppunk-models" class="level2">
@@ -598,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-poppunk_assign-to-assign-mags-to-subspecies" class="level3">
 <h3 class="anchored" data-anchor-id="using-poppunk_assign-to-assign-mags-to-subspecies">Using <code>poppunk_assign</code> to assign MAGs to subspecies</h3>
 <p>Now we’ll work with a large collection of MAGs. These are the <em>B. uniformis</em> MAGs from MGnify with &gt;95% completeness and &lt;5% contamination. They can be listed here</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/course_dir/data_dir/MGnify_training_course/MAGs_to_assign/fasta/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/course_dir/data_dir/MGnify_training_course/MAGs_to_assign</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>PopPUNK distances are relatively robust to missing sequence content seen in MAGs, but less able to deal with contamination.</p>
 <p>Again, navigate to the work directory and create the list of input files for poppunk:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/course_dir/work_dir/Day_5/pangenome</span>
