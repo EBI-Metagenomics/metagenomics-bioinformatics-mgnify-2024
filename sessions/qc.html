@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Christian Atallah">
-<meta name="dcterms.date" content="2024-09-18">
+<meta name="dcterms.date" content="2025-09-18">
 
 <title>Quality control and filtering of the raw sequence files – Metagenomics bioinformatics at MGnify (2025)</title>
 <style>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-c375568f0e8564fb30b0696f407fc9f0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-efb589feb32ab9294eb6589d1ac9cdab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ca146c75af252fb53c9e73e81359de52.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -298,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 18, 2024</p>
+      <p class="date">September 18, 2025</p>
     </div>
   </div>
   
@@ -332,32 +332,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Activate virtual environment
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Firstly, we need to create a virtual environment for this session so everything we do for this practical is contained within this environment.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> /home/training/venv/training_env5/bin/activate</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check /home/training is in your environment</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /home/training</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Note</span>Check data is loaded correctly
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For this practical we will need to a sample dataset. The sample dataset should already be in <code>/home/training/QC_session/quality</code>. Check if it is there. If not, go to the <code>Downloading data</code> section</p>
+<p>For this practical we will need to a sample dataset. The sample dataset should already be in <code>/home/training/course_dir/data_dir/qc_data/</code>. Check if it is there. If not, go to the <code>Downloading data</code> section</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -366,19 +349,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For this practical we will need to a sample dataset. The sample dataset should already be in <code>/home/training/QC_session/quality</code>. If not, you should download and decompress the data as follows:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/training/QC_session</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/QC_session</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># you should now have the quality subdirectory in your /home/training/QC_session. All the data you will need to run the practicals will be in this subdirectory</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#you can now remove the quality.tar.gz</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quality.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For this practical we will need to a sample dataset. The sample dataset should already be in <code>/home/training/course_dir/data_dir/qc_data</code>. If not, you should download and decompress the data as follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/training/course_dir/data_dir</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/course_dir/data_dir</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2025/qc-practical/qc_data.tar.gz</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> qc_data.tar.gz</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># you should now have the quality subdirectory in your /home/training/QC_session. All the data you will need to run the practicals will be in this subdirectory</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#you can now remove the qc_data.tar.gz</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> qc_data.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -393,17 +376,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <p>This practical (and the others) will generate quite a few output files from the different commands. It’s therefore recommended you keep your results well organised into different subdirectories, starting with the creation of a <code>qc_results</code> directory that will contain everything else.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /home/training/QC_session/qc_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You should now have in your <code>/home/training/QC_session</code> directory, the following subdirectories (<code>quality</code> and <code>qc_results</code>). <strong>Make sure both are there before moving onto the next steps. You might run into permission issues later if you have not created them properly.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /home/training/course_dir/work_dir/Day_2/qc_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should now have in your <code>/home/training/course_dir</code> directory, the following subdirectories (<code>data_dir/qc_data/</code> and <code>work_dir/Day_2/qc_results/</code>). <strong>Make sure both are there before moving onto the next steps. You might run into permission issues later if you have not created them properly.</strong></p>
 </div>
 </div>
-<p>For this tutorial, you’ll need to move into the working directory (/home/training/quality) and start a Docker container. Set the variables <code>DATADIR</code> and <code>RESDIR</code> as instructed.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/QC_session/quality</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/QC_session/quality</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>/home/training/QC_session/quality</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/QC_session/qc_results</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>/home/training/QC_session/qc_results</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">xhost</span> +</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For this tutorial, you’ll need to move into the working directory (<code>/home/training/course_dir/data_dir/qc_data</code>) and start a Docker container. Set the variables <code>DATADIR</code> and <code>RESDIR</code> as instructed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/training/course_dir/data_dir/qc_data</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/course_dir/data_dir/qc_data</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>/home/training/course_dir/data_dir/qc_data</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 /home/training/course_dir/work_dir/Day_2/qc_results</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>/home/training/course_dir/work_dir/Day_2/qc_results</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">xhost</span> +</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will get the message “access control disabled, clients can connect from any host”</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -416,13 +399,13 @@ Important
 </div>
 <div class="callout-body-container callout-body">
 <p>Again, to avoid permission issues, it’s very important that the directories <code>$DATADIR</code> and <code>$RESDIR</code> variables are exported correctly before running the container. You can check this by running:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$DATADIR</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$RESDIR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$DATADIR</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$RESDIR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>These commands should print out the paths for those variables. <strong>If it’s not printing anything, go back to the last instruction before proceeding.</strong></p>
 </div>
 </div>
 <p>Now start the Docker container:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> <span class="at">--user</span> 1001 <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/metagenomics-qc-practical</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> <span class="at">--user</span> 1001 <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/metagenomics-qc-practical</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="quality-control-and-filtering-of-the-raw-sequencing-read-files" class="level2">
 <h2 class="anchored" data-anchor-id="quality-control-and-filtering-of-the-raw-sequencing-read-files">Quality control and filtering of the raw sequencing read files</h2>
@@ -450,7 +433,7 @@ Important
 </div>
 <div class="callout-body-container callout-body">
 <p>These are the files we’ll use for the practical:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <section id="quality-assessment-with-fastqc-and-multiqc" class="level3">
@@ -466,10 +449,10 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/fastqc_results/oral</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/oral_human_example_1_splitaa.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/oral_human_example_2_splitaa.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/oral/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/fastqc_results/oral</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/oral_human_example_1_splitaa.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/oral_human_example_2_splitaa.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/oral/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>The <code>-o</code> option used with FastQC sends the output files to the given path.</p>
@@ -483,7 +466,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Navigate to Files → Home → QC_session → qc_results → fastqc_results → oral in your VM</p>
+<p>Navigate to Files → Home → course_dir → work_dir → Day_2 → qc_results → fastqc_results → oral in your VM</p>
 <p>Right-click on file <code>oral_human_example_1_splitaa_fastqc.html</code>, select ‘open with other application’, and open with Firefox.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -516,7 +499,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -525,7 +508,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>From the distribution of quality scores, we can tell that the sequencing for these reads is a standard good quality run, with the errors mainly starting at the 3’ end of the reads being a common feature.</p>
 </div>
@@ -552,7 +535,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -561,7 +544,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This bias at the beginning is a feature of the library preparation method used. In this case, a transposase-based fragmentation was used to break up the DNA for sequencing, which has biased towards certain bases.</p>
 </div>
@@ -594,7 +577,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -603,7 +586,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are no noticeable differences between the two directions, which is a good sign about the quality of the sequencing.</p>
 </div>
@@ -621,9 +604,9 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/multiqc_results/oral</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/oral <span class="at">-o</span> /opt/results/multiqc_results/oral</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/multiqc_results/oral/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/multiqc_results/oral</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/oral <span class="at">-o</span> /opt/results/multiqc_results/oral</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/multiqc_results/oral/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>In this case, we provide the folder containing the FastQC results to multiqc, and similar to FastQC, the <code>-o</code> argument allows us to set the output directory for this summarized report.</p>
@@ -637,7 +620,7 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Navigate to Home → QC_session → qc_results → multiqc_results → oral in your VM</p>
+<p>Navigate to Home → course_dir → work_dir → Day_2 → qc_results → oral in your VM</p>
 <p>Right-click on file <code>multiqc_report.html</code>, select ‘open with other application’, and open with Firefox.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -662,7 +645,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -671,7 +654,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For both directions, the fraction of duplicate reads is 0.9%.</p>
 </div>
@@ -692,7 +675,7 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/cleaned/oral</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/cleaned/oral</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>The <code>fastp</code> command you will run contains multiple parameters, so let’s slowly deconstruct it:</p>
@@ -706,13 +689,13 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">--in1</span> /opt/data/oral_human_example_1_splitaa.fastq.gz <span class="dt">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">--in2</span> /opt/data/oral_human_example_2_splitaa.fastq.gz <span class="dt">\</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out1</span> /opt/results/cleaned/oral/oral_human_example_1_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out2</span> /opt/results/cleaned/oral/oral_human_example_2_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-l</span> 50 <span class="at">--cut_right</span> <span class="at">--cut_right_window_size</span> 4 <span class="at">--cut_right_mean_quality</span> 20 <span class="at">-t</span> 1 <span class="dt">\</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">--detect_adapter_for_pe</span> <span class="dt">\</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">--json</span> /opt/results/cleaned/oral/oral.fastp.json <span class="at">--html</span> /opt/results/cleaned/oral/oral.fastp.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">--in1</span> /opt/data/oral_human_example_1_splitaa.fastq.gz <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">--in2</span> /opt/data/oral_human_example_2_splitaa.fastq.gz <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out1</span> /opt/results/cleaned/oral/oral_human_example_1_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out2</span> /opt/results/cleaned/oral/oral_human_example_2_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-l</span> 50 <span class="at">--cut_right</span> <span class="at">--cut_right_window_size</span> 4 <span class="at">--cut_right_mean_quality</span> 20 <span class="at">-t</span> 1 <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">--detect_adapter_for_pe</span> <span class="dt">\</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">--json</span> /opt/results/cleaned/oral/oral.fastp.json <span class="at">--html</span> /opt/results/cleaned/oral/oral.fastp.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -738,7 +721,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -747,7 +730,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Comparing the <code>total reads</code> metric in the before and after sections of the report, we can see that about 3.9 million reads were removed completely. The average quality of the reads has already increased, which can be seen from comparing the Q20/Q30 bases before and after filtering.</p>
 </div>
@@ -768,9 +751,9 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/decontamination</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: GRCh38_chr10.fasta  phix.fasta</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/decontamination</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: GRCh38_chr10.fasta  phix.fasta</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>For the next step, we need one file, so we want to merge the two different fasta files. This is simply done using the command-line tool <code>cat</code>.</p>
@@ -784,7 +767,7 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/data/decontamination/GRCh38_chr10.fasta /opt/data/decontamination/phix.fasta <span class="op">&gt;</span> /opt/data/decontamination/chr10_phix.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/data/decontamination/GRCh38_chr10.fasta /opt/data/decontamination/phix.fasta <span class="op">&gt;</span> /opt/data/decontamination/chr10_phix.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>You will often need to build indices for large sequence files - including sequencing files and reference files - to speed up computation. To build a bowtie index for our new concatenated PhiX-chr10 file, run the following script. <code>NOTE.</code> The indexing step can take a while to run (~ 2 -3 minutes for the example used in this practical)</p>
@@ -798,17 +781,17 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2-build</span> /opt/data/decontamination/chr10_phix.fasta /opt/data/decontamination/chr10_phix.index</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check output - indexed files end with *bt2</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/decontamination/chr10_phix.index<span class="pp">*</span>bt2</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.1.bt2</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.2.bt2</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.3.bt2</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.4.bt2</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.rev.1.bt2</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.rev.2.bt2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2-build</span> /opt/data/decontamination/chr10_phix.fasta /opt/data/decontamination/chr10_phix.index</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check output - indexed files end with *bt2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/decontamination/chr10_phix.index<span class="pp">*</span>bt2</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.1.bt2</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.2.bt2</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.3.bt2</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.4.bt2</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.rev.1.bt2</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># opt/data/decontamination/chr10_phix.index.rev.2.bt2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -835,11 +818,11 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">-1</span> /opt/results/cleaned/oral/oral_human_example_1_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">-2</span> /opt/results/cleaned/oral/oral_human_example_2_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-x</span> /opt/data/decontamination/chr10_phix.index <span class="dt">\</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">--un-conc-gz</span>  /opt/results/cleaned/oral/oral_human_example.fastq.gz <span class="dt">\</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">--very-sensitive</span> <span class="at">--dovetail</span> <span class="op">&gt;</span> /dev/null</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">-1</span> /opt/results/cleaned/oral/oral_human_example_1_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">-2</span> /opt/results/cleaned/oral/oral_human_example_2_splitaa.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-x</span> /opt/data/decontamination/chr10_phix.index <span class="dt">\</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">--un-conc-gz</span>  /opt/results/cleaned/oral/oral_human_example.fastq.gz <span class="dt">\</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">--very-sensitive</span> <span class="at">--dovetail</span> <span class="op">&gt;</span> /dev/null</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><code>-1</code> - input read 1</li>
 <li><code>-2</code> - input read 2</li>
@@ -864,7 +847,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -873,9 +856,9 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>TODO need to run this to fill it out (about 2% are removed entirely?)</p>
+<p>As the bowtie2 output says, 3.15% reads have aligned to the reference, and are therefore contaminating.</p>
 </div>
 </div>
 </div>
@@ -890,8 +873,8 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/oral/oral_human_example.fastq.1.gz /opt/results/cleaned/oral/oral_human_example_1_splitaa_trimmed_decontam.fastq.gz</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/oral/oral_human_example.fastq.2.gz /opt/results/cleaned/oral/oral_human_example_2_splitaa_trimmed_decontam.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/oral/oral_human_example.fastq.1.gz /opt/results/cleaned/oral/oral_human_example_1_splitaa_trimmed_decontam.fastq.gz</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/oral/oral_human_example.fastq.2.gz /opt/results/cleaned/oral/oral_human_example_2_splitaa_trimmed_decontam.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -911,7 +894,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -920,11 +903,11 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/oral/oral_human_example_1_splitaa_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/oral/oral_human_example_2_splitaa_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/oral/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/oral/oral_human_example_1_splitaa_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/oral/oral_human_example_2_splitaa_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/oral</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/oral/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -939,12 +922,12 @@ Question
 </div>
 <div class="callout-body-container callout-body">
 <p>Also generate a multiQC report, with <code>/opt/results/fastqc_results/oral</code> as input. The reason we generated the new FastQC reports in the same directory is so that you can compare how the reads have changed after the quality filtering and decontamination steps in the same final multiqc report.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/final_multiqc_results/oral</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>you <span class="ex">construct</span> the command<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/final_multiqc_results/oral</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>you <span class="ex">construct</span> the command<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -953,10 +936,10 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/final_multiqc_results/oral</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/oral <span class="at">-o</span> /opt/results/final_multiqc_results/oral</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/final_multiqc_results/oral</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/oral <span class="at">-o</span> /opt/results/final_multiqc_results/oral</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -994,7 +977,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1003,7 +986,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The sequence quality histograms show clearly that the cleaned and decontaminated reads have improved quality throughout the reads now.</p>
 </div>
@@ -1038,7 +1021,7 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">makeblastdb</span> <span class="at">-in</span> /opt/data/decontamination/phix.fasta <span class="at">-input_type</span> fasta <span class="at">-dbtype</span> nucl <span class="at">-parse_seqids</span> <span class="at">-out</span> /opt/data/decontamination/phix_blastDB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">makeblastdb</span> <span class="at">-in</span> /opt/data/decontamination/phix.fasta <span class="at">-input_type</span> fasta <span class="at">-dbtype</span> nucl <span class="at">-parse_seqids</span> <span class="at">-out</span> /opt/data/decontamination/phix_blastDB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>Prepare the freshwater sediment example assembly file and search against the new BLAST database. This assembly file contains only a subset of the contigs for the purpose of this practical.</p>
@@ -1052,9 +1035,9 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/blast_results</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> /opt/data/freshwater_sediment_contigs.fa.gz</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-query</span> /opt/data/freshwater_sediment_contigs.fa <span class="at">-db</span> /opt/data/decontamination/phix_blastDB <span class="at">-task</span> megablast <span class="at">-word_size</span> 28 <span class="at">-best_hit_overhang</span> 0.1 <span class="at">-best_hit_score_edge</span> 0.1 <span class="at">-dust</span> yes <span class="at">-evalue</span> 0.0001 <span class="at">-min_raw_gapped_score</span> 100 <span class="at">-penalty</span> <span class="at">-5</span> <span class="at">-soft_masking</span> true <span class="at">-window_size</span> 100 <span class="at">-outfmt</span> 6 <span class="at">-out</span> /opt/results/blast_results/freshwater_blast_out.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /opt/results/blast_results</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> /opt/data/freshwater_sediment_contigs.fa.gz</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-query</span> /opt/data/freshwater_sediment_contigs.fa <span class="at">-db</span> /opt/data/decontamination/phix_blastDB <span class="at">-task</span> megablast <span class="at">-word_size</span> 28 <span class="at">-best_hit_overhang</span> 0.1 <span class="at">-best_hit_score_edge</span> 0.1 <span class="at">-dust</span> yes <span class="at">-evalue</span> 0.0001 <span class="at">-min_raw_gapped_score</span> 100 <span class="at">-penalty</span> <span class="at">-5</span> <span class="at">-soft_masking</span> true <span class="at">-window_size</span> 100 <span class="at">-outfmt</span> 6 <span class="at">-out</span> /opt/results/blast_results/freshwater_blast_out.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>The BLAST options are:</p>
@@ -1075,8 +1058,8 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/data/blast_outfmt6.txt /opt/results/blast_results/freshwater_blast_out.txt <span class="op">&gt;</span> /opt/results/blast_results/freshwater_blast_out_headers.txt</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/results/blast_results/freshwater_blast_out_headers.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/data/blast_outfmt6.txt /opt/results/blast_results/freshwater_blast_out.txt <span class="op">&gt;</span> /opt/results/blast_results/freshwater_blast_out_headers.txt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /opt/results/blast_results/freshwater_blast_out_headers.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-question callout-titled">
@@ -1093,7 +1076,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1102,7 +1085,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-46" class="callout-46-contents callout-collapse collapse">
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The hits are very significant - they all have e-value hits of 0, which is the lowest it can go, and therefore the most confident the hit can be.</p>
 </div>
@@ -1122,7 +1105,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1131,7 +1114,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-48" class="callout-48-contents callout-collapse collapse">
+<div id="callout-47" class="callout-47-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The lengths of the matching contigs, in order, are: 596, 426, 389, and 385. You’d therefore still have the longest contig still present using this filter, as it’s 596 bases long.</p>
 </div>
@@ -1156,7 +1139,7 @@ Question
 </div>
 <section id="the-mystery-sequencing-runs" class="level3">
 <h3 class="anchored" data-anchor-id="the-mystery-sequencing-runs">The mystery sequencing runs</h3>
-<p>Going to this <a href="https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2025/qc-practical/">path</a>, you will find two mystery FASTQ files. You have this information about them:</p>
+<p>Going to <code>/opt/data/mystery_reads</code>, you will find two mystery FASTQ files. You have this information about them:</p>
 <ul>
 <li>They are both amplicon sequencing runs.</li>
 <li>One of the runs is a control</li>
@@ -1174,11 +1157,12 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Create a new directory from your terminal, change into it, and download the two FASTQ files</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /opt/results/mystery_runs</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/results/mystery_runs</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2025/qc-practical/mystery_reads_A.fastq.gz</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2025/qc-practical/mystery_reads_B.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Change into the directory containing the mystery reads, and run <code>ls -lh</code> to see some information about the files.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /opt/data/mystery_reads</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># total 7.7M</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># -rw-r--r-- 1 root root  26K Sep 11 12:24 mystery_reads_A.fastq.gz</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># -rw-r--r-- 1 root root 7.6M Sep 11 12:24 mystery_reads_B.fastq.gz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-question callout-titled">
@@ -1191,16 +1175,11 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Run <code>ls -lh</code> to see some information about the files you’ve just downloaded.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># total 7.7M</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -rw-r--r-- 1 root root  26K Sep 11 12:24 mystery_reads_A.fastq.gz</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># -rw-r--r-- 1 root root 7.6M Sep 11 12:24 mystery_reads_B.fastq.gz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Could you make an initial guess about which run is the control from this?</p>
+<p>Could you make an initial guess about which run is the control from this output?</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1209,7 +1188,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-52" class="callout-52-contents callout-collapse collapse">
+<div id="callout-51" class="callout-51-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The fifth column shows the file size, and it’s immediately noticeable how much smaller <code>mystery_reads_A</code> is compared to <code>mystery_reads_B</code>. This could indicate a lack of reads, which is either on purpose in the form of a control, or indicative of potential issues in sequencing.</p>
 </div>
@@ -1230,11 +1209,11 @@ Question
 </div>
 <div class="callout-body-container callout-body">
 <p>The SeqKit utility you want to use for the FASTQ-FASTA converstion is <code>fq2fa</code>. Go ahead and convert your FASTQ files like so</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> fq2fa mystery_reads_A.fastq.gz <span class="at">-o</span> mystery_reads_A.fasta.gz</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> fq2fa mystery_reads_B.fastq.gz <span class="at">-o</span> mystery_reads_B.fasta.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> fq2fa mystery_reads_A.fastq.gz <span class="at">-o</span> mystery_reads_A.fasta.gz</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> fq2fa mystery_reads_B.fastq.gz <span class="at">-o</span> mystery_reads_B.fasta.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will also need to uncompress the FASTA files before using MAPseq:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> mystery_reads_A.fasta.gz</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> mystery_reads_B.fasta.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> mystery_reads_A.fasta.gz</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> mystery_reads_B.fasta.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-question callout-titled">
@@ -1251,7 +1230,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1260,13 +1239,13 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-55" class="callout-55-contents callout-collapse collapse">
+<div id="callout-54" class="callout-54-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>stats</code> utility is very useful for getting a quick overview of sequence files:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats mystery_reads_<span class="pp">*</span>.fasta.gz</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># file                      format  type  num_seqs     sum_len  min_len  avg_len  max_len</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mystery_reads_A.fasta  FASTA   DNA        229      68,471      299      299      299</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mystery_reads_B.fasta  FASTA   DNA     77,566  23,192,234      299      299      299</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seqkit</span> stats mystery_reads_<span class="pp">*</span>.fasta</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># file                      format  type  num_seqs     sum_len  min_len  avg_len  max_len</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mystery_reads_A.fasta  FASTA   DNA        229      68,471      299      299      299</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mystery_reads_B.fasta  FASTA   DNA     77,566  23,192,234      299      299      299</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>num_seqs</code> metric tells you how many sequences there are in each file. <code>mystery_reads_A</code> seems to have significantly less reads than <code>mystery_reads_B</code>, again hinting at it being a potential control, as you’d expect far more reads from an actual run.</p>
 </div>
 </div>
@@ -1286,13 +1265,13 @@ Question
 </div>
 <div class="callout-body-container callout-body">
 <p>The SILVA reference database is already installed in the container at <code>/SILVA-SSU/</code>, so you can run MAPseq with the following commands:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mapseq</span> <span class="at">-seed</span> 12 <span class="at">-tophits</span> 80 <span class="at">-topotus</span> 40 <span class="at">-outfmt</span> simple mystery_reads_A.fasta /SILVA-SSU/SILVA-SSU.fasta /SILVA-SSU/SILVA-SSU-tax.txt <span class="op">&gt;</span> mystery_reads_A.mseq</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mapseq</span> <span class="at">-seed</span> 12 <span class="at">-tophits</span> 80 <span class="at">-topotus</span> 40 <span class="at">-outfmt</span> simple mystery_reads_B.fasta /SILVA-SSU/SILVA-SSU.fasta /SILVA-SSU/SILVA-SSU-tax.txt <span class="op">&gt;</span> mystery_reads_B.mseq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mapseq</span> <span class="at">-seed</span> 12 <span class="at">-tophits</span> 80 <span class="at">-topotus</span> 40 <span class="at">-outfmt</span> simple mystery_reads_A.fasta /SILVA-SSU/SILVA-SSU.fasta /SILVA-SSU/SILVA-SSU-tax.txt <span class="op">&gt;</span> mystery_reads_A.mseq</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mapseq</span> <span class="at">-seed</span> 12 <span class="at">-tophits</span> 80 <span class="at">-topotus</span> 40 <span class="at">-outfmt</span> simple mystery_reads_B.fasta /SILVA-SSU/SILVA-SSU.fasta /SILVA-SSU/SILVA-SSU-tax.txt <span class="op">&gt;</span> mystery_reads_B.mseq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will generate two files of the <code>.mseq</code> format, which contain a taxonomy assignment for every read that had a match to the SILVA database. There is a lot of information about every matching read, such as matching coordinates, confidence, etc., but for our exercise we want to focus on the final column, which contains the actual assignment. Running these commands will aggregate that final column by computing a count of how many times each taxonomic assignment appears for both runs:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> +2 mystery_reads_A.mseq <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f14</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1 "\t" $2}'</span> <span class="op">&gt;</span> mystery_reads_A_counts.tsv</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> +2 mystery_reads_B.mseq <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f14</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1 "\t" $2}'</span> <span class="op">&gt;</span> mystery_reads_B_counts.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> +2 mystery_reads_A.mseq <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f14</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1 "\t" $2}'</span> <span class="op">&gt;</span> mystery_reads_A_counts.tsv</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-n</span> +2 mystery_reads_B.mseq <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f14</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1 "\t" $2}'</span> <span class="op">&gt;</span> mystery_reads_B_counts.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">23</span>  sk__Bacteria<span class="kw">;</span><span class="ex">k__</span><span class="kw">;</span><span class="ex">p__Bacillota</span><span class="kw">;</span><span class="ex">c__Bacilli</span><span class="kw">;</span><span class="ex">o__Lactobacillales</span><span class="kw">;</span><span class="ex">f__Lactobacillaceae</span><span class="kw">;</span><span class="ex">g__Lactobacillus</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">23</span>  sk__Bacteria<span class="kw">;</span><span class="ex">k__</span><span class="kw">;</span><span class="ex">p__Bacillota</span><span class="kw">;</span><span class="ex">c__Bacilli</span><span class="kw">;</span><span class="ex">o__Lactobacillales</span><span class="kw">;</span><span class="ex">f__Lactobacillaceae</span><span class="kw">;</span><span class="ex">g__Lactobacillus</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This line means that this particular taxon was assigned to 23 different reads by MAPseq.</p>
 </div>
 </div>
@@ -1310,7 +1289,7 @@ Question
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1319,7 +1298,7 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-58" class="callout-58-contents callout-collapse collapse">
+<div id="callout-57" class="callout-57-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>It is clear that <code>mystery_reads_A</code> has significantly less microbial diversity than <code>mystery_reads_B</code>. In terms of richness i.e.&nbsp;how many unique taxa there are, <code>mystery_reads_A</code> only has 29, while <code>mystery_reads_B</code> has 123. In terms of abundance i.e.&nbsp;the total counts, only 229 reads were given a taxonomic assignment in <code>mystery_reads_A</code>, while <code>mystery_reads_B</code> has a total read count of 77,565.</p>
 <p>From these observations, it becomes clear that <code>mystery_reads_A</code> is the control, and that it is specifically a negative control. Indeed, <code>mystery_reads_A</code> has the accession <a href="https://www.ebi.ac.uk/ena/browser/view/SRR17185965">SRR17185965</a>, and is a water negative control sample, while <code>mystery_reads_B</code> has the accession <a href="https://www.ebi.ac.uk/ena/browser/view/SRR17185970">SRR17185970</a>, and is a mouse gut metagenome sample.</p>
@@ -1342,14 +1321,14 @@ Question
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/skin</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: skin_example_aa_1.fastq.gz  skin_example_aa_2.fastq.gz  skin_neg_control.fastq.gz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/data/skin</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: skin_example_aa_1.fastq.gz  skin_example_aa_2.fastq.gz  skin_neg_control.fastq.gz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>Remember you will need to run the following command to view any html files in the VM browsers:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 foldername/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 foldername/<span class="pp">*</span>.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-60-contents" aria-controls="callout-60" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1358,49 +1337,47 @@ Question
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-60" class="callout-60-contents callout-collapse collapse">
+<div id="callout-59" class="callout-59-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#generate fastqc of raw reads of skin samples and negative control</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /opt/results/fastqc_results/skin</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/skin/skin_example_aa_1.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/skin/skin_example_aa_2.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/skin/skin_neg_control.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#do quality filtering using fastp </span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /opt/results/cleaned/skin</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">--in1</span> /opt/data/skin/skin_example_aa_1.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">--in2</span> /opt/data/skin/skin_example_aa_2.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out1</span> /opt/results/cleaned/skin/skin_example_aa_1.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out2</span> /opt/results/cleaned/skin/skin_example_aa_2.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">-l</span> 50 <span class="at">--cut_right</span> <span class="at">--cut_right_window_size</span> 4 <span class="at">--cut_right_mean_quality</span> 20 <span class="at">-t</span> 1 <span class="dt">\</span></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">--detect_adapter_for_pe</span> <span class="dt">\</span></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">--json</span> /opt/results/cleaned/skin/oral.fastp.json <span class="at">--html</span> /opt/results/cleaned/skin/skin.fastp.html</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#do host decontamination with bowtie2</span></span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">-1</span> /opt/results/cleaned/skin/skin_example_aa_1.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">-2</span> /opt/results/cleaned/skin/skin_example_aa_2.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">-x</span> /opt/data/decontamination/chr10_phix.index <span class="dt">\</span></span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">--un-conc-gz</span>  /opt/results/cleaned/skin/skin_human_example.fastq.gz <span class="dt">\</span></span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">--very-sensitive</span> <span class="at">--dovetail</span> <span class="op">&gt;</span> /dev/null</span>
-<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="co">##decontaminated reads will be output as skin_human_example.fastq.1.gz and skin_human_example.fastq.2.gz in the /opt/results/cleaned/skin/ folder</span></span>
-<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a><span class="co">#rename decontaminated reads to be consistent</span></span>
-<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/skin/skin_human_example.fastq.1.gz /opt/results/cleaned/skin/skin_human_example_1_trimmed_decontam.fastq.gz</span>
-<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/skin/skin_human_example.fastq.2.gz /opt/results/cleaned/skin/skin_human_example_2_trimmed_decontam.fastq.gz</span>
-<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a><span class="co">#post-qc assessment with Fastqc and MultiQC</span></span>
-<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/skin/skin_human_example_1_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
-<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/skin/skin_human_example_2_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
-<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/skin/<span class="pp">*</span>.html</span>
-<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a><span class="co">#generate MultiQC report of pre- and post-QC fastq files</span></span>
-<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/skin <span class="at">-o</span> /opt/results/multiqc_results/skin</span>
-<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/skin/<span class="pp">*</span>.html</span>
-<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a><span class="co">#visualise multiQC reports in web browser.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#generate fastqc of raw reads of skin samples and negative control</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /opt/results/fastqc_results/skin</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/skin/skin_example_aa_1.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/skin/skin_example_aa_2.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/data/skin/skin_neg_control.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#do quality filtering using fastp </span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /opt/results/cleaned/skin</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="at">--in1</span> /opt/data/skin/skin_example_aa_1.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">--in2</span> /opt/data/skin/skin_example_aa_2.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out1</span> /opt/results/cleaned/skin/skin_example_aa_1.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out2</span> /opt/results/cleaned/skin/skin_example_aa_2.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">-l</span> 50 <span class="at">--cut_right</span> <span class="at">--cut_right_window_size</span> 4 <span class="at">--cut_right_mean_quality</span> 20 <span class="at">-t</span> 1 <span class="dt">\</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">--detect_adapter_for_pe</span> <span class="dt">\</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">--json</span> /opt/results/cleaned/skin/oral.fastp.json <span class="at">--html</span> /opt/results/cleaned/skin/skin.fastp.html</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co">#do host decontamination with bowtie2</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">-1</span> /opt/results/cleaned/skin/skin_example_aa_1.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">-2</span> /opt/results/cleaned/skin/skin_example_aa_2.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">-x</span> /opt/data/decontamination/chr10_phix.index <span class="dt">\</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">--un-conc-gz</span>  /opt/results/cleaned/skin/skin_human_example.fastq.gz <span class="dt">\</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">--very-sensitive</span> <span class="at">--dovetail</span> <span class="op">&gt;</span> /dev/null</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co">##decontaminated reads will be output as skin_human_example.fastq.1.gz and skin_human_example.fastq.2.gz in the /opt/results/cleaned/skin/ folder</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co">#rename decontaminated reads to be consistent</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/skin/skin_human_example.fastq.1.gz /opt/results/cleaned/skin/skin_human_example_1_trimmed_decontam.fastq.gz</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /opt/results/cleaned/skin/skin_human_example.fastq.2.gz /opt/results/cleaned/skin/skin_human_example_2_trimmed_decontam.fastq.gz</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="co">#post-qc assessment with Fastqc and MultiQC</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/skin/skin_human_example_1_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /opt/results/cleaned/skin/skin_human_example_2_trimmed_decontam.fastq.gz <span class="at">-o</span> /opt/results/fastqc_results/skin</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/skin/<span class="pp">*</span>.html</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="co">#generate MultiQC report of pre- and post-QC fastq files</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> /opt/results/fastqc_results/skin <span class="at">-o</span> /opt/results/multiqc_results/skin</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> 1001 /opt/results/fastqc_results/skin/<span class="pp">*</span>.html</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="co">#visualise multiQC reports in web browser.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1408,26 +1385,26 @@ Question
 <section id="running-the-practical-externally" class="level2">
 <h2 class="anchored" data-anchor-id="running-the-practical-externally">Running the practical externally</h2>
 <p>We need to first fetch the practical datasets.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> QC_session</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> QC_session</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--partial</span> <span class="at">--progress</span> rsync://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/ebi_2020/quality.tar.gz .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> QC_session</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> QC_session</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2025/qc-practical/qc_data.tar.gz</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--partial</span> <span class="at">--progress</span> rsync://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_courses/metagenomics_2025/qc-practical/qc_data.tar.gz .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Once downloaded, extract the files from the tarball:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> quality.tar.gz</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quality.tar.gz</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> qc_results</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> quality</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> qc_data.tar.gz</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> qc_data.tar.gz</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> qc_results</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> qc_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now pull the docker container and export the above directories.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/microbiome-informatics/metagenomics-qc-practical</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">quality</span> <span class="va">directory</span>}</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">qc_results</span> <span class="va">directory</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/microbiome-informatics/metagenomics-qc-practical</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATADIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">quality</span> <span class="va">directory</span>}</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RESDIR</span><span class="op">=</span>{path <span class="va">to</span> <span class="va">qc_results</span> <span class="va">directory</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will see the message “access control disabled, clients can connect from any host”</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/metagenomics-qc-practical</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span>  <span class="at">-e</span> DISPLAY=<span class="va">$DISPLAY</span>  <span class="at">-v</span> <span class="va">$DATADIR</span>:/opt/data <span class="at">-v</span> <span class="va">$RESDIR</span>:/opt/results <span class="at">-v</span> /tmp/.X11-unix:/tmp/.X11-unix:rw <span class="at">-e</span> DISPLAY=unix<span class="va">$DISPLAY</span> quay.io/microbiome-informatics/metagenomics-qc-practical</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The container has the following tools installed:</p>
 <ul>
 <li>fastqc</li>
@@ -1435,6 +1412,8 @@ Question
 <li>fastp</li>
 <li>bowtie2</li>
 <li>blast</li>
+<li>seqkit</li>
+<li>mapseq</li>
 </ul>
 <p>You can now continue this practical from the section “Quality control and filtering of the raw sequence files”</p>
 
